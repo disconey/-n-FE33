@@ -1,0 +1,193 @@
+{
+  "users": [
+    {
+      "email": "pm91343@gmail.com",
+      "password": "$2a$10$/w0sn/s5crWy8uvWWdlXHuCBDkIdtNR0AjM7e/2it7HP0HXuWdlee",
+      "fullName": "yen123",
+      "createdAt": 1690011595247,
+      "updatedAt": 1690011595247,
+      "id": 1
+    },
+    {
+      "email": "test@gmail.com",
+      "password": "$2a$10$3AoJcptqOzzx62spCm.f/OWF/IKguJJuUi2fZpXwa6jc9C7mKqLBC",
+      "fullName": "test123",
+      "avatar": "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      "createdAt": 1690099396002,
+      "updatedAt": 1690099396003,
+      "id": 2
+    },
+    {
+      "email": "test2@gmail.com",
+      "password": "$2a$10$Ws8x.z4KHuYstTjpBS/Wi.j9rUaYfIoLCDwZIKHUMcwxp.yt9jUqO",
+      "fullName": "test2",
+      "avatar": "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      "coin": 0,
+      "createdAt": 1690184546758,
+      "updatedAt": 1690184546758,
+      "id": 3
+    }
+  ],
+  "comics": [
+    {
+      "name": "Chiến Binh Học Đường",
+      "categoryId": 1,
+      "id": 1,
+      "createdAt": 1689594520064,
+      "updatedAt": 1689594520065,
+      "statusId": 1,
+      "avatar": "https://cdn2.vlogtruyen5.net/cdn/manga/2022/10/26/0313337776.jpg",
+      "description": "Thế kỉ 21, trái đất dung hợp với một thế giới khác, một kỉ nguyên của “Hầm ngục” bắt đầu, nơi tràn ngập quái vật và các cuộc đột kích của những “Đột Kích Giả”. Và một cơ quan giáo dục hàng đầu của Hàn Quốc đã được lập thành để nuôi dưỡng các nhà mạo hiểm này: “Học viện Chiến Binh”. Yoo Jaryong, mặc dù cậu từng được xem là một trong những nhà mạo hiểm mạnh nhất Châu Á, nhưng vì bị buộc tội oan mà cậu phải đi càn quét lậu các hầm ngục để có tiền trả viện phí cho cha. Một người Yoo Yaryong vô tình gặp đã nói với cậu ta rằng: “Cậu, hãy đến Học Viện Chiến Binh” Đây là câu chuyện về một chàng trai trẻ, người đã đánh mất cả giấc mơ, giấu đi xuất thân, đang một lần nữa tìm lại chính mình. "
+    },
+    {
+      "name": "Chiến Binh Học Đường",
+      "categoryId": 2,
+      "id": 2,
+      "createdAt": 1689594520067,
+      "updatedAt": 1689594520068,
+      "statusId": 1,
+      "avatar": "https://cdn2.vlogtruyen5.net/cdn/manga/2022/10/26/0313337776.jpg",
+      "description": "Thế kỉ 21, trái đất dung hợp với một thế giới khác, một kỉ nguyên của “Hầm ngục” bắt đầu, nơi tràn ngập quái vật và các cuộc đột kích của những “Đột Kích Giả”. Và một cơ quan giáo dục hàng đầu của Hàn Quốc đã được lập thành để nuôi dưỡng các nhà mạo hiểm này: “Học viện Chiến Binh”. Yoo Jaryong, mặc dù cậu từng được xem là một trong những nhà mạo hiểm mạnh nhất Châu Á, nhưng vì bị buộc tội oan mà cậu phải đi càn quét lậu các hầm ngục để có tiền trả viện phí cho cha. Một người Yoo Yaryong vô tình gặp đã nói với cậu ta rằng: “Cậu, hãy đến Học Viện Chiến Binh” Đây là câu chuyện về một chàng trai trẻ, người đã đánh mất cả giấc mơ, giấu đi xuất thân, đang một lần nữa tìm lại chính mình. "
+    },
+    {
+      "name": "Chiến Binh Học Đường3",
+      "categoryId": 3,
+      "id": 3,
+      "createdAt": 1689594520069,
+      "updatedAt": 1689594520070,
+      "statusId": 2,
+      "avatar": "https://cdn2.vlogtruyen5.net/cdn/manga/2022/10/26/0313337776.jpg",
+      "description": "Thế kỉ 21, trái đất dung hợp với một thế giới khác, một kỉ nguyên của “Hầm ngục” bắt đầu, nơi tràn ngập quái vật và các cuộc đột kích của những “Đột Kích Giả”. Và một cơ quan giáo dục hàng đầu của Hàn Quốc đã được lập thành để nuôi dưỡng các nhà mạo hiểm này: “Học viện Chiến Binh”. Yoo Jaryong, mặc dù cậu từng được xem là một trong những nhà mạo hiểm mạnh nhất Châu Á, nhưng vì bị buộc tội oan mà cậu phải đi càn quét lậu các hầm ngục để có tiền trả viện phí cho cha. Một người Yoo Yaryong vô tình gặp đã nói với cậu ta rằng: “Cậu, hãy đến Học Viện Chiến Binh” Đây là câu chuyện về một chàng trai trẻ, người đã đánh mất cả giấc mơ, giấu đi xuất thân, đang một lần nữa tìm lại chính mình. "
+    },
+    {
+      "name": "Chiến Binh Học Đường4",
+      "categoryId": 4,
+      "id": 4,
+      "createdAt": 1689594520071,
+      "updatedAt": 1689594520072,
+      "statusId": 2,
+      "avatar": "https://cdn2.vlogtruyen5.net/cdn/manga/2022/10/26/0313337776.jpg",
+      "description": "Thế kỉ 21, trái đất dung hợp với một thế giới khác, một kỉ nguyên của “Hầm ngục” bắt đầu, nơi tràn ngập quái vật và các cuộc đột kích của những “Đột Kích Giả”. Và một cơ quan giáo dục hàng đầu của Hàn Quốc đã được lập thành để nuôi dưỡng các nhà mạo hiểm này: “Học viện Chiến Binh”. Yoo Jaryong, mặc dù cậu từng được xem là một trong những nhà mạo hiểm mạnh nhất Châu Á, nhưng vì bị buộc tội oan mà cậu phải đi càn quét lậu các hầm ngục để có tiền trả viện phí cho cha. Một người Yoo Yaryong vô tình gặp đã nói với cậu ta rằng: “Cậu, hãy đến Học Viện Chiến Binh” Đây là câu chuyện về một chàng trai trẻ, người đã đánh mất cả giấc mơ, giấu đi xuất thân, đang một lần nữa tìm lại chính mình. "
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Action"
+    },
+    {
+      "id": 2,
+      "name": "Tiên hiệp"
+    },
+    {
+      "id": 3,
+      "name": "Huyền huyễn"
+    },
+    {
+      "id": 4,
+      "name": "Kinh dị"
+    },
+    {
+      "id": 5,
+      "name": "Đô thị"
+    },
+    {
+      "id": 6,
+      "name": "Trinh thám"
+    },
+    {
+      "id": 7,
+      "name": "Xuyên không"
+    },
+    {
+      "id": 8,
+      "name": "Manga"
+    },
+    {
+      "id": 9,
+      "name": "Manhwa"
+    },
+    {
+      "id": 10,
+      "name": "Manhua"
+    },
+    {
+      "id": 11,
+      "name": "Thể thao"
+    }
+  ],
+  "chapters": [
+    {
+      "id": 1,
+      "name": "Chap 1",
+      "imgcomic": [
+        "https://cdn2.vlogtruyen5.net/cdn/chapter/2023/04/18/0253506862_20230409_225827_001.jpg",
+        "https://cdn2.vlogtruyen5.net/cdn/chapter/2023/04/18/3220915488_20230409_225827_002.jpg",
+        "https://cdn2.vlogtruyen5.net/cdn/chapter/2023/04/18/3493936114_20230409_225827_004.jpg",
+        "https://cdn2.vlogtruyen5.net/cdn/chapter/2023/04/18/6247953904_20230409_225827_005.jpg",
+        "https://cdn2.vlogtruyen5.net/cdn/chapter/2023/04/18/1180722594_20230409_225827_006.jpg",
+        "https://cdn2.vlogtruyen5.net/cdn/chapter/2023/04/18/4379842014_20230409_225827_007.jpg",
+        "https://cdn2.vlogtruyen5.net/cdn/chapter/2023/04/18/3943893397_20230409_225827_008.jpg",
+        "https://cdn2.vlogtruyen5.net/cdn/chapter/2023/04/18/7858606684_20230409_225827_009.jpg",
+        "https://cdn2.vlogtruyen5.net/cdn/chapter/2023/04/18/6827899148_20230409_225827_010.jpg"
+      ],
+      "comicId": 1
+    }
+  ],
+  "statuses": [
+    {
+      "id": 1,
+      "name": "Đang tiến hành"
+    },
+    {
+      "id": 2,
+      "name": "Đã hoàn thành"
+    }
+  ],
+  "reviews": [
+    {
+      "comment": "123123",
+      "userId": 1,
+      "productId": 1,
+      "createdAt": 1690096240593,
+      "updatedAt": 1690096240594,
+      "id": 3
+    },
+    {
+      "comment": "123123",
+      "userId": 2,
+      "productId": 3,
+      "avatar": "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      "createdAt": 1690099590727,
+      "updatedAt": 1690099590728,
+      "id": 5
+    },
+    {
+      "comment": "123123",
+      "userId": 2,
+      "productId": 3,
+      "avatar": "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      "createdAt": 1690100923244,
+      "updatedAt": 1690100923244,
+      "id": 6
+    },
+    {
+      "comment": "123123",
+      "userId": 2,
+      "productId": 3,
+      "avatar": "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      "createdAt": 1690101529009,
+      "updatedAt": 1690101529009,
+      "id": 7
+    },
+    {
+      "comment": "123123",
+      "userId": 2,
+      "productId": 2,
+      "avatar": "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      "createdAt": 1690102984640,
+      "updatedAt": 1690102984640,
+      "id": 8
+    }
+  ]
+}
