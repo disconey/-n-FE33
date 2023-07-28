@@ -33,6 +33,7 @@ export const Login = styled.div`
   gap: 20px;
   align-items: center;
   justify-content: center;
+  color: white;
 `;
 export const Ul = styled.ul`
   display: flex;

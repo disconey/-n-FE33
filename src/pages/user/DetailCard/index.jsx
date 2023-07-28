@@ -36,7 +36,12 @@ const DetailCard = () => {
     return chapterList.data.map((item) => {
       return (
         <S.Li>
-          <S.SLink to={generatePath(ROUTES.CHAPTER_PAGE, { id: item.id })}>
+          <S.SLink
+            to={generatePath(ROUTES.CHAPTER_PAGE, {
+              comicId: parseInt(id),
+              chapterId: item.id,
+            })}
+          >
             {item.name}
           </S.SLink>
           <S.TextP>1 Ngày trước</S.TextP>

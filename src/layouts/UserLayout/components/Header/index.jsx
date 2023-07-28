@@ -37,9 +37,6 @@ function AdminHeader() {
     );
   };
 
-  useEffect(() => {
-    dispatch(getUserInfoRequest({ id: parseInt(id) }));
-  }, []);
   const navigate = useNavigate();
   return (
     <div>

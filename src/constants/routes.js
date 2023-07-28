@@ -15,6 +15,6 @@ export const ROUTES = {
     GENERALINFO: "/personal/generalinfo/:id",
   },
   DETAIL_CARD: "/comics/:id",
-  CHAPTER_PAGE: "/chapter/:id",
+  CHAPTER_PAGE: "/comics/:comicId/chapter/:chapterId",
   FITLER_SEARCH_PAGE: "/comics",
 };

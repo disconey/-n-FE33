@@ -54,12 +54,15 @@ function* getUserInfoSaga(action) {
 }
 function* paymentSaga(action) {
   try {
-    const { data, callback, id } = action.payload;
-    const result = yield axios.post(`http://localhost:4000/users/${id}`, data);
+    const { data, callback } = action.payload;
+    const result = yield axios.patch(
+      `http://localhost:4000/users/${data.id}`,
+      data
+    );
     yield callback();
     yield put(paymentSuccess({ data: result.data.user }));
   } catch (e) {
-    yield put(paymentFailure({ error: "Lỗi" }));
+    yield put(paymentFailure({ error: e }));
   }
 }
 

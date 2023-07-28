@@ -3,7 +3,7 @@ import React from "react";
 import { CaretDownOutlined } from "@ant-design/icons";
 
 import * as S from "./styles";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ROUTES } from "constants/routes";
 
 const items = [
@@ -162,13 +162,21 @@ const Midmenu = () => {
           </S.CustomDropDown>
 
           <S.Li>Theo dõi</S.Li>
-          <S.Li onClick={() => navigate(ROUTES.FITLER_SEARCH_PAGE)}>
-            Manhua
+          <S.Li>
+            <Link to={ROUTES.FITLER_SEARCH_PAGE} state={{ categoryId: 10 }}>
+              Manhua
+            </Link>
           </S.Li>
-          <S.Li onClick={() => navigate(ROUTES.FITLER_SEARCH_PAGE)}>
-            Manhwa
+          <S.Li>
+            <Link to={ROUTES.FITLER_SEARCH_PAGE} state={{ categoryId: 9 }}>
+              Manhwa
+            </Link>
           </S.Li>
-          <S.Li onClick={() => navigate(ROUTES.FITLER_SEARCH_PAGE)}>Manga</S.Li>
+          <S.Li>
+            <Link to={ROUTES.FITLER_SEARCH_PAGE} state={{ categoryId: 8 }}>
+              Manga
+            </Link>
+          </S.Li>
         </S.Ul>
       </Row>
     </S.Container>

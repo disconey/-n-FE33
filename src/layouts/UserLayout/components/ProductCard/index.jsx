@@ -13,12 +13,18 @@ const ProductCard = () => {
   const { chapterList } = useSelector((state) => state.chapter);
   const navigate = useNavigate();
 
-  const renderProductChapter = useMemo(() => {
-    return chapterList.data.map((item) => {
+  const renderProductChapter = (comicId, chapters) => {
+    if (!chapters) return null;
+    return chapters.map((item) => {
       return (
         <S.TextContent>
           <div>
-            <Link to={generatePath(ROUTES.CHAPTER_PAGE, { id: item.id })}>
+            <Link
+              to={generatePath(ROUTES.CHAPTER_PAGE, {
+                comicId: comicId,
+                chapterId: item.id,
+              })}
+            >
               <S.Chapter>{item.name}</S.Chapter>
             </Link>
           </div>
@@ -28,7 +34,7 @@ const ProductCard = () => {
         </S.TextContent>
       );
     });
-  }, [chapterList.data]);
+  };
 
   return (
     <>
@@ -58,7 +64,7 @@ const ProductCard = () => {
               <S.SLink to={generatePath(ROUTES.DETAIL_CARD, { id: item.id })}>
                 <S.NameComic>{item?.name}</S.NameComic>
               </S.SLink>
-              {renderProductChapter}
+              {renderProductChapter(item.id, item.chapters)}
             </S.CardItem>
           </Col>
         );

@@ -9,11 +9,13 @@ import { getChapterListRequest } from "redux/slicers/chapter.slice";
 import { getCategoryListRequest } from "redux/slicers/category.slice";
 import { PRODUCT_LIMIT } from "constants/paging";
 import useScrollToTop from "hooks/useSrcollToTop";
+import { useLocation } from "react-router-dom";
 
 const FilterSearchPage = () => {
   useScrollToTop();
+  const { state } = useLocation();
   const [filterParams, setFilterParams] = useState({
-    categoryId: [],
+    categoryId: state?.categoryId ? [state?.categoryId] : [],
     order: "",
     statusId: [],
   });
@@ -47,6 +49,10 @@ const FilterSearchPage = () => {
     );
   };
   const pageCount = Math.ceil(productList.meta.total / productList.meta.limit);
+  console.log(
+    "🚀 ~ file: index.jsx:50 ~ FilterSearchPage ~ pageCount:",
+    pageCount
+  );
 
   const handlePageClick = (event) => {
     console.log(

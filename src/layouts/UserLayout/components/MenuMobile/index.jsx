@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import pic from "img/Screenshot 2023-05-01 142134 (3).png";
-import { Button, Space } from "antd";
+import { Button, Dropdown, Space } from "antd";
 import {
   MenuOutlined,
   MessageOutlined,
@@ -9,11 +9,13 @@ import {
 import * as S from "./styles";
 import Midmenu from "../Midmenu";
 import { ROUTES } from "constants/routes";
-import { Navigate, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Navigate, generatePath, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutRequest } from "redux/slicers/auth.slice";
 const MenuMobile = () => {
   const [showMenu, setShowMenu] = useState(false);
   const { userInfo } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -39,20 +41,42 @@ const MenuMobile = () => {
           <S.Li>Manga</S.Li>
         </S.Ul>
         <S.Login>
-          {userInfo.data.id ? (
-            <div>
-              <Space>
-                <S.Avatar src={userInfo.data.avatar} />
-                <h3>
-                  {userInfo.data.fullName} <CaretDownOutlined />
-                </h3>
-              </Space>
-            </div>
-          ) : (
-            <Button onClick={() => navigate(ROUTES.LOGIN)} type="primary">
-              Đăng nhập
-            </Button>
-          )}
+          <Dropdown
+            menu={{
+              items: [
+                {
+                  key: 1,
+                  label: "Thông tin cá nhân",
+                  onClick: () =>
+                    navigate(
+                      generatePath(ROUTES.PERSONAL.GENERALINFO, {
+                        id: userInfo.data.id,
+                      })
+                    ),
+                },
+                {
+                  key: 2,
+                  label: "Đăng xuất",
+                  onClick: () => dispatch(logoutRequest()),
+                },
+              ],
+            }}
+          >
+            {userInfo.data.id ? (
+              <div>
+                <Space>
+                  <S.Avatar src={userInfo.data.avatar} />
+                  <h3>
+                    {userInfo.data.fullName} <CaretDownOutlined />
+                  </h3>
+                </Space>
+              </div>
+            ) : (
+              <Button onClick={() => navigate(ROUTES.LOGIN)} type="primary">
+                Đăng nhập
+              </Button>
+            )}
+          </Dropdown>
         </S.Login>
       </S.Toggles>
       <S.InputMobile>

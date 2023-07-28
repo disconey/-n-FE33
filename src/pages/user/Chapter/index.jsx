@@ -25,17 +25,39 @@ import { generatePath, useNavigate, useParams } from "react-router-dom/dist";
 import { ROUTES } from "constants/routes";
 const ChapterPage = () => {
   useScrollToTop();
-  const { id } = useParams();
+  const { comicId, chapterId } = useParams();
+  console.log("🚀 ~ file: index.jsx:29 ~ ChapterPage ~ chapterId:", chapterId);
   const dispatch = useDispatch();
   const { chapterList, chapterDetail } = useSelector((state) => state.chapter);
   const { productDetail } = useSelector((state) => state.product);
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getChapterDetailRequest({ id: parseInt(id) }));
-    dispatch(getChapterListRequest({ id: parseInt(id) }));
-    dispatch(getProductDetailRequest({ id: parseInt(id) }));
+    dispatch(getChapterDetailRequest({ id: parseInt(chapterId) }));
+    dispatch(getChapterListRequest({ id: parseInt(comicId) }));
   }, []);
+
+  useEffect(() => {
+    let myTimeout;
+    if (productDetail.data.id) {
+      console.log(
+        "🚀 ~ file: index.jsx:42 ~ useEffect ~ productDetail:",
+        productDetail
+      );
+      myTimeout = setTimeout(() => {
+        console.log("ahihi");
+        dispatch(
+          getProductDetailRequest({
+            id: parseInt(chapterId),
+            data: {
+              view: productDetail.data.view + 1,
+            },
+          })
+        );
+      }, 1000);
+    }
+    return clearTimeout(myTimeout);
+  }, [productDetail.data.id]);
 
   const renderChapterList = useMemo(() => {
     return chapterList.data.map((item) => {
