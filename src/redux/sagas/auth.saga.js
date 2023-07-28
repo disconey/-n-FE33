@@ -11,6 +11,9 @@ import {
   getUserInfoRequest,
   getUserInfoSuccess,
   getUserInfoFailure,
+  updateUserInfoRequest,
+  updateUserInfoSuccess,
+  updateUserInfoFailure,
   paymentRequest,
   paymentSuccess,
   paymentFailure,
@@ -65,10 +68,24 @@ function* paymentSaga(action) {
     yield put(paymentFailure({ error: e }));
   }
 }
+function* updateUserInfoSaga(action) {
+  try {
+    const { data, callback } = action.payload;
+    const result = yield axios.patch(
+      `http://localhost:4000/users/${data.id}`,
+      data
+    );
+    yield callback();
+    yield put(updateUserInfoSuccess({ data: result.data.user }));
+  } catch (e) {
+    yield put(updateUserInfoFailure({ error: e }));
+  }
+}
 
 export default function* authSaga() {
   yield takeEvery(loginRequest.type, loginSaga);
   yield takeEvery(registerRequest.type, registerSaga);
   yield takeEvery(getUserInfoRequest.type, getUserInfoSaga);
   yield takeEvery(paymentRequest.type, paymentSaga);
+  yield takeEvery(updateUserInfoRequest.type, updateUserInfoSaga);
 }

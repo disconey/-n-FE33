@@ -3,9 +3,13 @@ import * as S from "./styles";
 import useScrollToTop from "hooks/useSrcollToTop";
 import { PlusOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom/dist";
+import { Navigate, useParams } from "react-router-dom/dist";
 import { useEffect } from "react";
-import { getUserInfoRequest } from "redux/slicers/auth.slice";
+import {
+  getUserInfoRequest,
+  updateUserInfoRequest,
+} from "redux/slicers/auth.slice";
+import { ROUTES } from "constants/routes";
 const { Option } = Select;
 const formItemLayout = {
   labelCol: {
@@ -58,6 +62,20 @@ const AccountInfo = () => {
     dispatch(getUserInfoRequest({ id: parseInt(id) }));
   }, []);
 
+  const handleSumbit = (values) => {
+    console.log("🚀 ~ file: index.jsx:51 ~ handleSumbit ~ values:", values);
+    dispatch(
+      updateUserInfoRequest({
+        data: {
+          id: userInfo.data.id,
+          fullName: values.fullName,
+          avatar: values.upload,
+          gender: values.gender,
+        },
+        callback: () => Navigate(ROUTES.PERSONAL.GENERALINFO),
+      })
+    );
+  };
   return (
     <div>
       <S.Title>Cập nhật thông tin tài khoản</S.Title>
@@ -65,7 +83,7 @@ const AccountInfo = () => {
         {...formItemLayout}
         form={form}
         name="register"
-        onFinish={onFinish}
+        onFinish={(values) => handleSumbit(values)}
         style={{
           maxWidth: 600,
         }}
@@ -73,7 +91,7 @@ const AccountInfo = () => {
       >
         <S.Container>
           <Form.Item
-            name="nickname"
+            name="fullName"
             label="Họ và Tên"
             tooltip="Bạn muốn người khác gọi mình là gì?"
             rules={[
@@ -86,21 +104,8 @@ const AccountInfo = () => {
           >
             <Input />
           </Form.Item>
-          <Form.Item
-            name="email"
-            label="E-mail"
-            rules={[
-              {
-                type: "email",
-                message: "Email nhập vào không hợp lệ!",
-              },
-              {
-                required: true,
-                message: "Vui Lòng nhập E-mail!",
-              },
-            ]}
-          >
-            <Input disabled placeholder="pm91343@gmail.com" />
+          <Form.Item name="email" label="E-mail">
+            <Input disabled placeholder={userInfo.data.email} />
           </Form.Item>
 
           <Form.Item
@@ -127,6 +132,7 @@ const AccountInfo = () => {
         </S.Container>
         <div>
           <Form.Item
+            name="upload"
             label="Upload"
             valuePropName="fileList"
             getValueFromEvent={normFile}

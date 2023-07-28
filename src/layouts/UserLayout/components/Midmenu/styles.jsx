@@ -35,7 +35,7 @@ export const A = styled.a`
 `;
 
 export const CustomDropDown = styled(Dropdown)`
-  &ul {
+  > .ant-dropdown-menu {
     display: flex !important;
     width: 300px;
     flex-wrap: wrap;

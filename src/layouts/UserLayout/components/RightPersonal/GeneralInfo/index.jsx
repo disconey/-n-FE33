@@ -46,7 +46,7 @@ const GeneralInfo = () => {
           </S.TextDetail>
           <S.TextDetail>
             <p>Xu</p>
-            <p>250</p>
+            <p>{userInfo.data.coin}</p>
           </S.TextDetail>
         </S.InfoDetail>
       </S.AccountInfo>

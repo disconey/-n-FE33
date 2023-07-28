@@ -81,6 +81,21 @@ export const authSlice = createSlice({
       state.userInfo.loading = false;
       state.userInfo.error = error;
     },
+    // updataUserInfo
+    updateUserInfoRequest: (state, action) => {
+      state.userInfo.loading = true;
+      state.userInfo.error = null;
+    },
+    updateUserInfoSuccess: (state, action) => {
+      const { data } = action.payload;
+      state.userInfo.data = data;
+      state.userInfo.loading = false;
+    },
+    updateUserInfoFailure: (state, action) => {
+      const { error } = action.payload;
+      state.userInfo.loading = false;
+      state.userInfo.error = error;
+    },
   },
 });
 
@@ -95,6 +110,9 @@ export const {
   getUserInfoRequest,
   getUserInfoSuccess,
   getUserInfoFailure,
+  updateUserInfoRequest,
+  updateUserInfoSuccess,
+  updateUserInfoFailure,
   paymentRequest,
   paymentSuccess,
   paymentFailure,

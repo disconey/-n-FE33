@@ -5,144 +5,106 @@ import { CaretDownOutlined } from "@ant-design/icons";
 import * as S from "./styles";
 import { Link, useNavigate } from "react-router-dom";
 import { ROUTES } from "constants/routes";
+import { useSelector } from "react-redux";
 
 const items = [
   {
     key: "1",
-    label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.antgroup.com"
-      >
-        Tất cả
-      </a>
-    ),
+    label: <Link to={ROUTES.FITLER_SEARCH_PAGE}>Tất cả</Link>,
   },
   {
     key: "2",
     label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.antgroup.com"
-      >
+      <Link to={ROUTES.FITLER_SEARCH_PAGE} state={{ categoryId: 1 }}>
         Action
-      </a>
+      </Link>
     ),
   },
   {
     key: "3",
     label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.antgroup.com"
-      >
-        Adult
-      </a>
+      <Link to={ROUTES.FITLER_SEARCH_PAGE} state={{ categoryId: 2 }}>
+        Tiên hiệp
+      </Link>
     ),
   },
   {
     key: "4",
     label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.antgroup.com"
-      >
-        Adventure
-      </a>
+      <Link to={ROUTES.FITLER_SEARCH_PAGE} state={{ categoryId: 3 }}>
+        Huyền huyễn
+      </Link>
     ),
   },
   {
     key: "5",
     label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.antgroup.com"
-      >
-        Anime
-      </a>
+      <Link to={ROUTES.FITLER_SEARCH_PAGE} state={{ categoryId: 4 }}>
+        Kinh dị
+      </Link>
     ),
   },
   {
     key: "6",
     label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.antgroup.com"
-      >
-        Chuyển Sinh
-      </a>
+      <Link to={ROUTES.FITLER_SEARCH_PAGE} state={{ categoryId: 5 }}>
+        Đô thị
+      </Link>
     ),
   },
   {
     key: "7",
     label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.antgroup.com"
-      >
-        Comedy
-      </a>
+      <Link to={ROUTES.FITLER_SEARCH_PAGE} state={{ categoryId: 6 }}>
+        Trinh thám
+      </Link>
     ),
   },
   {
     key: "8",
     label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.antgroup.com"
-      >
-        Comic
-      </a>
+      <Link to={ROUTES.FITLER_SEARCH_PAGE} state={{ categoryId: 7 }}>
+        Xuyên không
+      </Link>
     ),
   },
   {
     key: "9",
     label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.antgroup.com"
-      >
-        Cooking
-      </a>
+      <Link to={ROUTES.FITLER_SEARCH_PAGE} state={{ categoryId: 8 }}>
+        Manga
+      </Link>
     ),
   },
   {
     key: "10",
     label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.antgroup.com"
-      >
-        Cổ Đại
-      </a>
+      <Link to={ROUTES.FITLER_SEARCH_PAGE} state={{ categoryId: 9 }}>
+        Manhwa
+      </Link>
     ),
   },
   {
     key: "11",
     label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.antgroup.com"
-      >
-        Doujinshi
-      </a>
+      <Link to={ROUTES.FITLER_SEARCH_PAGE} state={{ categoryId: 10 }}>
+        Manhua
+      </Link>
+    ),
+  },
+  {
+    key: "12",
+    label: (
+      <Link to={ROUTES.FITLER_SEARCH_PAGE} state={{ categoryId: 11 }}>
+        Thể thao
+      </Link>
     ),
   },
 ];
 
 const Midmenu = () => {
   const navigate = useNavigate();
+
   return (
     <S.Container>
       <Row>

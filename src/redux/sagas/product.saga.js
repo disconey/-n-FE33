@@ -47,9 +47,9 @@ function* getProductListSaga(action) {
 }
 function* getProductDetailSaga(action) {
   try {
-    const { comicId } = action.payload || {};
+    const { id } = action.payload || {};
 
-    const result = yield axios.get(`http://localhost:4000/comics/${comicId}`, {
+    const result = yield axios.get(`http://localhost:4000/comics/${id}`, {
       params: {
         _expand: ["category", "status"],
       },
