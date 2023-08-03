@@ -9,7 +9,11 @@ import { Col, Row } from "antd";
 import * as S from "./styles";
 import { useDispatch } from "react-redux";
 import { getProductListRequest } from "redux/slicers/product.slice";
-import { getChapterListRequest } from "redux/slicers/chapter.slice";
+import {
+  getChapterDetailRequest,
+  getChapterListRequest,
+} from "redux/slicers/chapter.slice";
+import { CHAPTER_LIMIT } from "constants/paging";
 const HomePage = () => {
   const dispatch = useDispatch();
   useScrollToTop();

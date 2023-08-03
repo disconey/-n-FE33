@@ -1,21 +1,24 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { EyeOutlined, HeartOutlined, MessageOutlined } from "@ant-design/icons";
 import { Col, Row } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 
 import * as S from "./styles";
 import { ROUTES } from "constants/routes";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { generatePath } from "react-router-dom/dist";
 import moment from "moment/moment";
+import { getChapterDetailRequest } from "redux/slicers/chapter.slice";
+import { CHAPTER_LIMIT } from "constants/paging";
 const ProductCard = () => {
   const { productList } = useSelector((state) => state.product);
   const { chapterList } = useSelector((state) => state.chapter);
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const renderProductChapter = (comicId, chapters) => {
     if (!chapters) return null;
-    return chapters.map((item) => {
+    return chapters.map((item, index) => {
+      if (index > 2) return null;
       return (
         <S.TextContent>
           <div>

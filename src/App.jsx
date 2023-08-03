@@ -18,6 +18,7 @@ import { useEffect } from "react";
 import jwtDecode from "jwt-decode";
 import { useDispatch } from "react-redux";
 import { getUserInfoRequest } from "redux/slicers/auth.slice";
+import FollowComics from "layouts/UserLayout/components/RightPersonal/FollowComics";
 
 function App() {
   const dispatch = useDispatch();
@@ -47,6 +48,7 @@ function App() {
         <Route path={ROUTES.PERSONAL.ACCOUNTINFO} element={<AccountInfo />} />
         <Route path={ROUTES.PERSONAL.PAYMENT} element={<PaymentPage />} />
         <Route path={ROUTES.PERSONAL.GENERALINFO} element={<GeneralInfo />} />
+        <Route path={ROUTES.PERSONAL.FOLLOW} element={<FollowComics />} />
       </Route>
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />
       <Route path={ROUTES.REGISTER} element={<RegisterPage />} />

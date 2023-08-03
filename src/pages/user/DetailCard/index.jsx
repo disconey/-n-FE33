@@ -4,6 +4,7 @@ import {
   BugOutlined,
   EyeOutlined,
   InfoCircleOutlined,
+  LockOutlined,
   ReadOutlined,
   SlackOutlined,
   SyncOutlined,
@@ -21,35 +22,54 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductDetailRequest } from "redux/slicers/product.slice";
 import { getChapterListRequest } from "redux/slicers/chapter.slice";
 import { getReviewListRequest } from "redux/slicers/review.slice";
+import { Space, Table } from "antd";
+
 const DetailCard = () => {
   const { id } = useParams();
   useScrollToTop();
   const dispatch = useDispatch();
   const { productDetail } = useSelector((state) => state.product);
   const { chapterList } = useSelector((state) => state.chapter);
+  console.log(
+    "🚀 ~ file: index.jsx:30 ~ DetailCard ~ chapterList:",
+    chapterList
+  );
   useEffect(() => {
     dispatch(getProductDetailRequest({ id: parseInt(id) }));
     dispatch(getChapterListRequest({ id: parseInt(id) }));
     dispatch(getReviewListRequest({ productId: parseInt(id) }));
   }, []);
-  const renderProductChapter = useMemo(() => {
-    return chapterList.data.map((item) => {
+
+  const renderProductChapter = (comicId, chapters) => {
+    if (!chapters) return null;
+    return chapters.map((item) => {
       return (
         <S.Li>
-          <S.SLink
-            to={generatePath(ROUTES.CHAPTER_PAGE, {
-              comicId: parseInt(id),
-              chapterId: item.id,
-            })}
-          >
-            {item.name}
-          </S.SLink>
+          <div>
+            <S.SLink
+              to={generatePath(ROUTES.CHAPTER_PAGE, {
+                comicId: comicId,
+                chapterId: item.id,
+              })}
+            >
+              {item.name}
+            </S.SLink>
+            {item.price ? (
+              <span style={{ color: "red" }}>
+                <LockOutlined />
+                {item.price}
+              </span>
+            ) : (
+              ""
+            )}
+          </div>
+
           <S.TextP>1 Ngày trước</S.TextP>
           <S.TextP>928</S.TextP>
         </S.Li>
       );
     });
-  }, [chapterList.data]);
+  };
 
   return (
     <div>
@@ -139,6 +159,7 @@ const DetailCard = () => {
           <h4>
             <UnorderedListOutlined /> Danh sách chương
           </h4>
+
           <S.ChapterTable>
             <S.TopTable>
               <S.Text>Chapter</S.Text>
@@ -146,7 +167,12 @@ const DetailCard = () => {
               <S.Text>Lượt xem</S.Text>
             </S.TopTable>
             <div>
-              <S.Ul>{renderProductChapter}</S.Ul>
+              <S.Ul>
+                {renderProductChapter(
+                  productDetail.data.id,
+                  productDetail.data.chapters
+                )}
+              </S.Ul>
             </div>
           </S.ChapterTable>
         </div>

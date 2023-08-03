@@ -19,16 +19,8 @@ export const productSlice = createSlice({
   initialState,
   reducers: {
     getProductListRequest: (state, action) => {
-      // const { data } = action.payload;
       state.productList.loading = true;
       state.productList.error = null;
-      // if (!data) {
-      //   state.productList.data = state.productList.data || [];
-      // } else {
-      //   state.productList.data = state.productList.data.filter((product) =>
-      //     product.name.toLowerCase().includes(data.toLowerCase())
-      //   );
-      // }
     },
     getProductListSuccess: (state, action) => {
       const { data, meta } = action.payload;

@@ -1,15 +1,15 @@
-import { Button, Form, Input, Select, Upload } from "antd";
+import { Button, Form, Input, Select, Upload, message } from "antd";
 import * as S from "./styles";
 import useScrollToTop from "hooks/useSrcollToTop";
-import { PlusOutlined } from "@ant-design/icons";
+import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useParams } from "react-router-dom/dist";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   getUserInfoRequest,
   updateUserInfoRequest,
 } from "redux/slicers/auth.slice";
-import { ROUTES } from "constants/routes";
+
 const { Option } = Select;
 const formItemLayout = {
   labelCol: {
@@ -47,9 +47,53 @@ const normFile = (e) => {
   }
   return e?.fileList;
 };
+const getBase64 = (img, callback) => {
+  const reader = new FileReader();
+  reader.addEventListener("load", () => callback(reader.result));
+  reader.readAsDataURL(img);
+};
+const beforeUpload = (file) => {
+  const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+  if (!isJpgOrPng) {
+    message.error("You can only upload JPG/PNG file!");
+  }
+  const isLt2M = file.size / 1024 / 1024 < 2;
+  if (!isLt2M) {
+    message.error("Image must smaller than 2MB!");
+  }
+  return isJpgOrPng && isLt2M;
+};
 const AccountInfo = () => {
   useScrollToTop();
-  const [form] = Form.useForm();
+  const [updateForm] = Form.useForm();
+  const [loading, setLoading] = useState(false);
+  const [imageUrl, setImageUrl] = useState();
+
+  const handleChange = (info) => {
+    if (info.file.status === "uploading") {
+      setLoading(true);
+      return;
+    }
+    if (info.file.status === "done") {
+      // Get this url from response in real world.
+      getBase64(info.file.originFileObj, (url) => {
+        setLoading(false);
+        setImageUrl(url);
+      });
+    }
+  };
+  const uploadButton = (
+    <div>
+      {loading ? <LoadingOutlined /> : <PlusOutlined />}
+      <div
+        style={{
+          marginTop: 8,
+        }}
+      >
+        Upload
+      </div>
+    </div>
+  );
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
   };
@@ -62,27 +106,21 @@ const AccountInfo = () => {
     dispatch(getUserInfoRequest({ id: parseInt(id) }));
   }, []);
 
-  const handleSumbit = (values) => {
-    console.log("🚀 ~ file: index.jsx:51 ~ handleSumbit ~ values:", values);
-    dispatch(
-      updateUserInfoRequest({
-        data: {
-          id: userInfo.data.id,
-          fullName: values.fullName,
-          avatar: values.upload,
-          gender: values.gender,
-        },
-        callback: () => Navigate(ROUTES.PERSONAL.GENERALINFO),
-      })
-    );
+  const initialValues = {
+    name: userInfo.data.fullName,
+    email: userInfo.data.email,
   };
+
+  const handleSumbit = async (values) => {};
+
   return (
     <div>
       <S.Title>Cập nhật thông tin tài khoản</S.Title>
       <S.CustomForm
         {...formItemLayout}
-        form={form}
-        name="register"
+        form={updateForm}
+        name="updateInfo"
+        defaultValue={initialValues}
         onFinish={(values) => handleSumbit(values)}
         style={{
           maxWidth: 600,
@@ -137,17 +175,26 @@ const AccountInfo = () => {
             valuePropName="fileList"
             getValueFromEvent={normFile}
           >
-            <Upload action="/upload.do" listType="picture-card">
-              <div>
-                <PlusOutlined />
-                <div
+            <Upload
+              name="avatar"
+              listType="picture-card"
+              className="avatar-uploader"
+              showUploadList={false}
+              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              beforeUpload={beforeUpload}
+              onChange={handleChange}
+            >
+              {imageUrl ? (
+                <img
+                  src={imageUrl}
+                  alt="avatar"
                   style={{
-                    marginTop: 8,
+                    width: "100%",
                   }}
-                >
-                  Upload
-                </div>
-              </div>
+                />
+              ) : (
+                uploadButton
+              )}
             </Upload>
           </Form.Item>
         </div>

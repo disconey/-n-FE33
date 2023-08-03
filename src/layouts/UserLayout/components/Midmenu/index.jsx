@@ -1,110 +1,137 @@
 import { Col, Dropdown, Row, Space } from "antd";
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 import { CaretDownOutlined } from "@ant-design/icons";
+import qs from "qs";
 
 import * as S from "./styles";
 import { Link, useNavigate } from "react-router-dom";
 import { ROUTES } from "constants/routes";
-import { useSelector } from "react-redux";
-
-const items = [
-  {
-    key: "1",
-    label: <Link to={ROUTES.FITLER_SEARCH_PAGE}>Tất cả</Link>,
-  },
-  {
-    key: "2",
-    label: (
-      <Link to={ROUTES.FITLER_SEARCH_PAGE} state={{ categoryId: 1 }}>
-        Action
-      </Link>
-    ),
-  },
-  {
-    key: "3",
-    label: (
-      <Link to={ROUTES.FITLER_SEARCH_PAGE} state={{ categoryId: 2 }}>
-        Tiên hiệp
-      </Link>
-    ),
-  },
-  {
-    key: "4",
-    label: (
-      <Link to={ROUTES.FITLER_SEARCH_PAGE} state={{ categoryId: 3 }}>
-        Huyền huyễn
-      </Link>
-    ),
-  },
-  {
-    key: "5",
-    label: (
-      <Link to={ROUTES.FITLER_SEARCH_PAGE} state={{ categoryId: 4 }}>
-        Kinh dị
-      </Link>
-    ),
-  },
-  {
-    key: "6",
-    label: (
-      <Link to={ROUTES.FITLER_SEARCH_PAGE} state={{ categoryId: 5 }}>
-        Đô thị
-      </Link>
-    ),
-  },
-  {
-    key: "7",
-    label: (
-      <Link to={ROUTES.FITLER_SEARCH_PAGE} state={{ categoryId: 6 }}>
-        Trinh thám
-      </Link>
-    ),
-  },
-  {
-    key: "8",
-    label: (
-      <Link to={ROUTES.FITLER_SEARCH_PAGE} state={{ categoryId: 7 }}>
-        Xuyên không
-      </Link>
-    ),
-  },
-  {
-    key: "9",
-    label: (
-      <Link to={ROUTES.FITLER_SEARCH_PAGE} state={{ categoryId: 8 }}>
-        Manga
-      </Link>
-    ),
-  },
-  {
-    key: "10",
-    label: (
-      <Link to={ROUTES.FITLER_SEARCH_PAGE} state={{ categoryId: 9 }}>
-        Manhwa
-      </Link>
-    ),
-  },
-  {
-    key: "11",
-    label: (
-      <Link to={ROUTES.FITLER_SEARCH_PAGE} state={{ categoryId: 10 }}>
-        Manhua
-      </Link>
-    ),
-  },
-  {
-    key: "12",
-    label: (
-      <Link to={ROUTES.FITLER_SEARCH_PAGE} state={{ categoryId: 11 }}>
-        Thể thao
-      </Link>
-    ),
-  },
-];
+import { useDispatch, useSelector } from "react-redux";
+import { getCategoryListRequest } from "redux/slicers/category.slice";
+import { setFilterParams } from "redux/slicers/common.slice";
 
 const Midmenu = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { categoryList } = useSelector((state) => state.category);
+  const { filterParams } = useSelector((state) => state.common);
+  useEffect(() => {
+    dispatch(getCategoryListRequest());
+  }, []);
 
+  const items = [
+    {
+      key: "2",
+      label: "Action",
+      onClick: () => {
+        dispatch(setFilterParams({ ...filterParams, categoryId: [1] }));
+        navigate({
+          pathname: ROUTES.FITLER_SEARCH_PAGE,
+          search: qs.stringify({ ...filterParams, categoryId: [1] }),
+        });
+      },
+    },
+    {
+      key: "3",
+      label: "Tiên hiệp",
+      onClick: () => {
+        dispatch(setFilterParams({ ...filterParams, categoryId: [2] }));
+        navigate({
+          pathname: ROUTES.FITLER_SEARCH_PAGE,
+          search: qs.stringify({ ...filterParams, categoryId: [2] }),
+        });
+      },
+    },
+    {
+      key: "4",
+      label: "Huyền huyễn",
+      onClick: () => {
+        dispatch(setFilterParams({ ...filterParams, categoryId: [3] }));
+        navigate({
+          pathname: ROUTES.FITLER_SEARCH_PAGE,
+          search: qs.stringify({ ...filterParams, categoryId: [3] }),
+        });
+      },
+    },
+    {
+      key: "5",
+      label: "Kinh dị",
+      onClick: () => {
+        dispatch(setFilterParams({ ...filterParams, categoryId: [4] }));
+        navigate({
+          pathname: ROUTES.FITLER_SEARCH_PAGE,
+          search: qs.stringify({ ...filterParams, categoryId: [4] }),
+        });
+      },
+    },
+    {
+      key: "6",
+      label: "Đô thị",
+      onClick: () => {
+        dispatch(setFilterParams({ ...filterParams, categoryId: [5] }));
+        navigate({
+          pathname: ROUTES.FITLER_SEARCH_PAGE,
+          search: qs.stringify({ ...filterParams, categoryId: [5] }),
+        });
+      },
+    },
+    {
+      key: "7",
+      label: "Trinh thám",
+      onClick: () => {
+        dispatch(setFilterParams({ ...filterParams, categoryId: [6] }));
+        navigate({
+          pathname: ROUTES.FITLER_SEARCH_PAGE,
+          search: qs.stringify({ ...filterParams, categoryId: [6] }),
+        });
+      },
+    },
+    {
+      key: "8",
+      label: "Xuyên không",
+      onClick: () => {
+        dispatch(setFilterParams({ ...filterParams, categoryId: [7] }));
+        navigate({
+          pathname: ROUTES.FITLER_SEARCH_PAGE,
+          search: qs.stringify({ ...filterParams, categoryId: [7] }),
+        });
+      },
+    },
+    {
+      key: "9",
+      label: "Thể thao",
+      onClick: () => {
+        dispatch(setFilterParams({ ...filterParams, categoryId: [11] }));
+        navigate({
+          pathname: ROUTES.FITLER_SEARCH_PAGE,
+          search: qs.stringify({ ...filterParams, categoryId: [11] }),
+        });
+      },
+    },
+  ];
+
+  // const renderNavLink = useMemo(() => {
+  //   return categoryList.data.map((item) => {
+  //     const newFilterParams = {
+  //       ...filterParams,
+  //       categoryId: [item.id],
+  //     };
+  //     return (
+  //       <S.NavLinkItem
+  //         key={item.id}
+  //         onClick={() => {
+  //           dispatch(setFilterParams(newFilterParams));
+  //           navigate({
+  //             pathname: ROUTES.USER.PRODUCT_LIST,
+  //             search: qs.stringify(newFilterParams),
+  //           });
+  //         }}
+  //       >
+  //         <h4>{item.name}</h4>
+  //       </S.NavLinkItem>
+  //     );
+  //   });
+  // }, [categoryList.data, filterParams]);
   return (
     <S.Container>
       <Row>
@@ -124,20 +151,38 @@ const Midmenu = () => {
           </S.CustomDropDown>
 
           <S.Li>Theo dõi</S.Li>
-          <S.Li>
-            <Link to={ROUTES.FITLER_SEARCH_PAGE} state={{ categoryId: 10 }}>
-              Manhua
-            </Link>
+          <S.Li
+            onClick={() => {
+              dispatch(setFilterParams({ ...filterParams, categoryId: [10] }));
+              navigate({
+                pathname: ROUTES.FITLER_SEARCH_PAGE,
+                search: qs.stringify({ ...filterParams, categoryId: [10] }),
+              });
+            }}
+          >
+            Manhua
           </S.Li>
-          <S.Li>
-            <Link to={ROUTES.FITLER_SEARCH_PAGE} state={{ categoryId: 9 }}>
-              Manhwa
-            </Link>
+          <S.Li
+            onClick={() => {
+              dispatch(setFilterParams({ ...filterParams, categoryId: [9] }));
+              navigate({
+                pathname: ROUTES.FITLER_SEARCH_PAGE,
+                search: qs.stringify({ ...filterParams, categoryId: [9] }),
+              });
+            }}
+          >
+            Manhwa
           </S.Li>
-          <S.Li>
-            <Link to={ROUTES.FITLER_SEARCH_PAGE} state={{ categoryId: 8 }}>
-              Manga
-            </Link>
+          <S.Li
+            onClick={() => {
+              dispatch(setFilterParams({ ...filterParams, categoryId: [8] }));
+              navigate({
+                pathname: ROUTES.FITLER_SEARCH_PAGE,
+                search: qs.stringify({ ...filterParams, categoryId: [8] }),
+              });
+            }}
+          >
+            Manga
           </S.Li>
         </S.Ul>
       </Row>

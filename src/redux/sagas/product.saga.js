@@ -52,6 +52,7 @@ function* getProductDetailSaga(action) {
     const result = yield axios.get(`http://localhost:4000/comics/${id}`, {
       params: {
         _expand: ["category", "status"],
+        _embed: ["chapters", "reviews"],
       },
     });
     yield put(getProductDetailSuccess({ data: result.data }));

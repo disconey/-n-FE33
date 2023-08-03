@@ -10,9 +10,10 @@ export const ROUTES = {
   LOGIN: "/login",
   REGISTER: "/register",
   PERSONAL: {
-    ACCOUNTINFO: "/personal/accountinfo/:id",
-    PAYMENT: "/personal/payment/:id",
-    GENERALINFO: "/personal/generalinfo/:id",
+    ACCOUNTINFO: "/personal/accountinfo",
+    PAYMENT: "/personal/payment",
+    GENERALINFO: "/personal/generalinfo",
+    FOLLOW: "/personal/followcomics",
   },
   DETAIL_CARD: "/comics/:id",
   CHAPTER_PAGE: "/comics/:comicId/chapter/:chapterId",

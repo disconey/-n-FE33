@@ -69,10 +69,13 @@ export const SideImg = styled.div`
   bottom: 110px;
   line-height: 25px;
   font-size: 12px;
+  display: flex;
+  justify-content: center;
 `;
 
 export const ItemSideIcon = styled.div`
   display: flex;
   align-items: center;
   gap: 5px;
+  margin-right: 10px;
 `;

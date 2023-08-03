@@ -30,7 +30,7 @@ const Comment = () => {
         data: {
           ...values,
           userId: userInfo.data.id,
-          productId: productDetail.data.id,
+          comicId: productDetail.data.id,
           avatar: userInfo.data.avatar,
         },
         callback: () => reviewForm.resetFields(),

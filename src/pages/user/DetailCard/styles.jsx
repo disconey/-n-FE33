@@ -74,22 +74,21 @@ export const ChapterTable = styled.div`
   border-radius: 10px;
 `;
 export const Ul = styled.ul`
-  width: 100%;
-  border-bottom: 1px solid #bbb9b9;
   list-style: none;
   margin: 0;
   padding: 0;
-  padding: 10px;
 `;
 export const Li = styled.li`
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom: 1px solid #bbb9b9;
+  padding: 5px;
 `;
 export const Text = styled.h4`
-  width: 135px;
-  text-align: center;
+  width: 112px;
+  white-space: nowrap;
 `;
 export const TextP = styled.p`
   width: 135px;
@@ -97,7 +96,7 @@ export const TextP = styled.p`
   color: #bbb9b9;
 `;
 export const SLink = styled(Link)`
-  width: 135px;
+  width: 60px;
   display: flex;
   text-decoration: none;
   color: black;

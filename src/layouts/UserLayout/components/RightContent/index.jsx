@@ -1,5 +1,5 @@
 import { Button, Segmented } from "antd";
-import React from "react";
+import React, { useMemo } from "react";
 import pic from "img/1559251677.jpg";
 import {
   DeleteOutlined,
@@ -10,8 +10,46 @@ import {
 } from "@ant-design/icons";
 
 import * as S from "./styles";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteHistoryRequest } from "redux/slicers/history.slice";
 
 const RightContent = () => {
+  const dispatch = useDispatch();
+  const { historyList } = useSelector((state) => state.history);
+
+  const handleDeleteHistoryItem = (productId) => {
+    dispatch(
+      deleteHistoryRequest({
+        productId: productId,
+      })
+    );
+  };
+
+  const renderHistoryList = useMemo(() => {
+    if (!historyList) return null;
+    return historyList.map((item, index) => {
+      if (index > 2) return null;
+      return (
+        <S.CardReading>
+          <S.ImgComic src={item.productAvatar} alt="" />
+          <S.Item>
+            <S.NameComic>{item.productName}</S.NameComic>
+            <p>
+              Đọc tiếp {item.chapterName}
+              <RightOutlined />
+            </p>
+          </S.Item>
+          <Button
+            type="text"
+            icon={<DeleteOutlined />}
+            onClick={() => handleDeleteHistoryItem(item.productId)}
+          >
+            Xoá
+          </Button>
+        </S.CardReading>
+      );
+    });
+  }, [historyList.data]);
   return (
     <div className="right-content">
       <S.Reading>
@@ -19,44 +57,7 @@ const RightContent = () => {
           <S.Text>Đang đọc</S.Text>
           <S.P>Xem tất cả</S.P>
         </S.TitleReading>
-        <div>
-          <S.CardReading>
-            <S.ImgComic src={pic} alt="" />
-            <S.Item>
-              <S.NameComic>Thể thao cực hạn</S.NameComic>
-              <p>
-                Đọc tiếp Chapter 3 <RightOutlined />
-              </p>
-            </S.Item>
-            <h4>
-              <DeleteOutlined /> Xoá
-            </h4>
-          </S.CardReading>
-          <S.CardReading>
-            <S.ImgComic src={pic} alt="" />
-            <S.Item>
-              <S.NameComic>Thể thao cực hạn</S.NameComic>
-              <p>
-                Đọc tiếp Chapter 3 <RightOutlined />
-              </p>
-            </S.Item>
-            <h4>
-              <DeleteOutlined /> Xoá
-            </h4>
-          </S.CardReading>
-          <S.CardReading>
-            <S.ImgComic src={pic} alt="" />
-            <S.Item>
-              <S.NameComic>Thể thao cực hạn</S.NameComic>
-              <p>
-                Đọc tiếp Chapter 3 <RightOutlined />
-              </p>
-            </S.Item>
-            <h4>
-              <DeleteOutlined /> Xoá
-            </h4>
-          </S.CardReading>
-        </div>
+        <div>{renderHistoryList}</div>
       </S.Reading>
 
       <div className="top-view">

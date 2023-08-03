@@ -6,7 +6,8 @@
       "fullName": "yen123",
       "createdAt": 1690011595247,
       "updatedAt": 1690011595247,
-      "id": 1
+      "id": 1,
+      "coin": 0
     },
     {
       "email": "test@gmail.com",
@@ -15,7 +16,8 @@
       "avatar": "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
       "createdAt": 1690099396002,
       "updatedAt": 1690099396003,
-      "id": 2
+      "id": 2,
+      "coin": 0
     },
     {
       "email": "test2@gmail.com",
@@ -146,18 +148,43 @@
     {
       "id": 1,
       "name": "Chap 1",
-      "imgcomic": [
-        "https://cdn2.vlogtruyen5.net/cdn/chapter/2023/04/18/0253506862_20230409_225827_001.jpg",
-        "https://cdn2.vlogtruyen5.net/cdn/chapter/2023/04/18/3220915488_20230409_225827_002.jpg",
-        "https://cdn2.vlogtruyen5.net/cdn/chapter/2023/04/18/3493936114_20230409_225827_004.jpg",
-        "https://cdn2.vlogtruyen5.net/cdn/chapter/2023/04/18/6247953904_20230409_225827_005.jpg",
-        "https://cdn2.vlogtruyen5.net/cdn/chapter/2023/04/18/1180722594_20230409_225827_006.jpg",
-        "https://cdn2.vlogtruyen5.net/cdn/chapter/2023/04/18/4379842014_20230409_225827_007.jpg",
-        "https://cdn2.vlogtruyen5.net/cdn/chapter/2023/04/18/3943893397_20230409_225827_008.jpg",
-        "https://cdn2.vlogtruyen5.net/cdn/chapter/2023/04/18/7858606684_20230409_225827_009.jpg",
-        "https://cdn2.vlogtruyen5.net/cdn/chapter/2023/04/18/6827899148_20230409_225827_010.jpg"
-      ],
-      "comicId": 1
+      "view": 25,
+      "comicId": 1,
+      "updatedAt": 1691074118483
+    },
+    {
+      "id": 2,
+      "name": "Chap 2",
+      "view": 15,
+      "comicId": 1,
+      "updatedAt": 1691062969188
+    },
+    {
+      "id": 1,
+      "name": "Chap 1",
+      "view": 0,
+      "comicId": 2
+    },
+    {
+      "id": 2,
+      "name": "Chap 2",
+      "view": 0,
+      "comicId": 2
+    },
+    {
+      "id": 3,
+      "name": "Chap 3",
+      "view": 1,
+      "comicId": 1,
+      "updatedAt": 1691062937463
+    },
+    {
+      "id": 4,
+      "name": "Chap 4",
+      "view": 54,
+      "comicId": 1,
+      "price": 4,
+      "updatedAt": 1691062568766
     }
   ],
   "statuses": [
@@ -173,47 +200,59 @@
   "reviews": [
     {
       "comment": "123123",
-      "userId": 1,
-      "productId": 1,
-      "createdAt": 1690096240593,
-      "updatedAt": 1690096240594,
-      "id": 3
+      "userId": 2,
+      "comicId": 1,
+      "avatar": "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      "createdAt": 1691064155682,
+      "updatedAt": 1691064155682,
+      "id": 1
     },
     {
       "comment": "123123",
       "userId": 2,
-      "productId": 3,
+      "comicId": 1,
       "avatar": "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
-      "createdAt": 1690099590727,
-      "updatedAt": 1690099590728,
-      "id": 5
+      "createdAt": 1691064159506,
+      "updatedAt": 1691064159506,
+      "id": 2
+    }
+  ],
+  "imgcomics": [
+    {
+      "chapterId": 1,
+      "img": "https://cdn2.vlogtruyen5.net/cdn/chapter/2023/04/18/0253506862_20230409_225827_001.jpg"
     },
     {
-      "comment": "123123",
-      "userId": 2,
-      "productId": 3,
-      "avatar": "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
-      "createdAt": 1690100923244,
-      "updatedAt": 1690100923244,
-      "id": 6
+      "chapterId": 1,
+      "img": "https://cdn2.vlogtruyen5.net/cdn/chapter/2023/04/18/3220915488_20230409_225827_002.jpg"
     },
     {
-      "comment": "123123",
-      "userId": 2,
-      "productId": 3,
-      "avatar": "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
-      "createdAt": 1690101529009,
-      "updatedAt": 1690101529009,
-      "id": 7
+      "chapterId": 1,
+      "img": "ttps://cdn2.vlogtruyen5.net/cdn/chapter/2023/04/18/3493936114_20230409_225827_004.jpg"
     },
     {
-      "comment": "123123",
-      "userId": 2,
-      "productId": 2,
-      "avatar": "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
-      "createdAt": 1690102984640,
-      "updatedAt": 1690102984640,
-      "id": 8
+      "chapterId": 1,
+      "img": "https://cdn2.vlogtruyen5.net/cdn/chapter/2023/04/18/6247953904_20230409_225827_005.jpg"
+    },
+    {
+      "chapterId": 1,
+      "img": "https://cdn2.vlogtruyen5.net/cdn/chapter/2023/04/18/1180722594_20230409_225827_006.jpg"
+    },
+    {
+      "chapterId": 1,
+      "img": "https://cdn2.vlogtruyen5.net/cdn/chapter/2023/04/18/3943893397_20230409_225827_008.jpg"
+    },
+    {
+      "chapterId": 1,
+      "img": "https://cdn2.vlogtruyen5.net/cdn/chapter/2023/04/18/7858606684_20230409_225827_009.jpg"
+    },
+    {
+      "chapterId": 1,
+      "img": "https://cdn2.vlogtruyen5.net/cdn/chapter/2023/04/18/6827899148_20230409_225827_010.jpg"
+    },
+    {
+      "chapterId": 4,
+      "img": "https://cdn2.vlogtruyen5.net/cdn/chapter/2023/04/18/6827899148_20230409_225827_010.jpg"
     }
   ]
 }

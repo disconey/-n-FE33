@@ -48,7 +48,7 @@ function* registerSaga(action) {
 
 function* getUserInfoSaga(action) {
   try {
-    const { id } = action.payload;
+    const { id } = action.payload || {};
     const result = yield axios.get(`http://localhost:4000/users/${id}`);
     yield put(getUserInfoSuccess({ data: result.data }));
   } catch (e) {

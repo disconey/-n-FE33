@@ -64,7 +64,6 @@ const PersonalPage = () => {
             >
               Nạp xu
             </S.ItemPersonal>
-            <S.ItemPersonal className="item-personal">Nhập code</S.ItemPersonal>
             <S.ItemPersonal className="item-personal">
               Lịch sử nạp tiền
             </S.ItemPersonal>

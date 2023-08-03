@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   BugOutlined,
   CaretLeftOutlined,
@@ -9,76 +9,126 @@ import {
   RightOutlined,
   UnorderedListOutlined,
 } from "@ant-design/icons";
-import { Button } from "antd";
+import { Button, Modal } from "antd";
 import pic from "img/Chapter/0946759826_01-170.jpg";
 import useScrollToTop from "hooks/useSrcollToTop";
 import Comment from "layouts/UserLayout/components/Comment";
 import * as S from "./styles";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  clearChapterRequest,
   getChapterDetailRequest,
   getChapterListRequest,
+  updateChapterDetailRequest,
 } from "redux/slicers/chapter.slice";
 import { getProductDetailRequest } from "redux/slicers/product.slice";
 
-import { generatePath, useNavigate, useParams } from "react-router-dom/dist";
+import {
+  Link,
+  generatePath,
+  useNavigate,
+  useParams,
+} from "react-router-dom/dist";
 import { ROUTES } from "constants/routes";
+import { getUserInfoRequest } from "redux/slicers/auth.slice";
+import { addToHistoryRequest } from "redux/slicers/history.slice";
 const ChapterPage = () => {
   useScrollToTop();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { comicId, chapterId } = useParams();
-  console.log("🚀 ~ file: index.jsx:29 ~ ChapterPage ~ chapterId:", chapterId);
+
   const dispatch = useDispatch();
   const { chapterList, chapterDetail } = useSelector((state) => state.chapter);
+  const { userInfo } = useSelector((state) => state.auth);
   const { productDetail } = useSelector((state) => state.product);
+
   const navigate = useNavigate();
+  // const myTimeout = useRef(null);
 
   useEffect(() => {
-    dispatch(getChapterDetailRequest({ id: parseInt(chapterId) }));
     dispatch(getChapterListRequest({ id: parseInt(comicId) }));
+    dispatch(getProductDetailRequest({ id: parseInt(comicId) }));
+    dispatch(getChapterDetailRequest({ id: parseInt(chapterId) }));
+    return () => dispatch(clearChapterRequest());
   }, []);
 
   useEffect(() => {
-    let myTimeout;
-    if (productDetail.data.id) {
-      console.log(
-        "🚀 ~ file: index.jsx:42 ~ useEffect ~ productDetail:",
-        productDetail
+    if (chapterDetail.data.id) {
+      dispatch(
+        updateChapterDetailRequest({
+          id: parseInt(chapterId),
+          data: {
+            view: chapterDetail.data.view + 1,
+          },
+        })
       );
-      myTimeout = setTimeout(() => {
-        console.log("ahihi");
-        dispatch(
-          getProductDetailRequest({
-            id: parseInt(chapterId),
-            data: {
-              view: productDetail.data.view + 1,
-            },
-          })
-        );
-      }, 1000);
+      dispatch(
+        addToHistoryRequest({
+          data: {
+            productId: productDetail.data.id,
+            productName: productDetail.data.name,
+            productAvatar: productDetail.data.avatar,
+            chapterName: chapterDetail.data.name,
+            chapterId: chapterDetail.data.id,
+          },
+        })
+      );
     }
-    return clearTimeout(myTimeout);
-  }, [productDetail.data.id]);
+  }, [chapterDetail.data.id, chapterId]);
 
-  const renderChapterList = useMemo(() => {
-    return chapterList.data.map((item) => {
-      return (
-        <option key={item.id} value={item.id}>
-          {item.name}
-        </option>
-      );
+  // useEffect(() => {
+  //   if (chapterDetail.data.id) {
+  //     myTimeout.current = setTimeout(() => {
+  //       console.log("ahihi");
+  //       dispatch(
+  //         updateChapterDetailRequest({
+  //           id: parseInt(chapterId),
+  //           data: {
+  //             view: chapterDetail.data.view + 1,
+  //           },
+  //         })
+  //       );
+  //     }, 1000);
+  //   }
+  // }, [chapterDetail.data]);
+
+  const renderChapterList = (comicId, chapters) => {
+    if (!chapters) return null;
+    return chapters?.map((item) => {
+      return <option>{item.name}</option>;
     });
-  }, [chapterList.data]);
-  const renderChapterDetail = useMemo(() => {
-    if (!chapterDetail.data.imgcomic) return null;
-    return chapterDetail.data.imgcomic.map((item) => {
+  };
+
+  const renderChapterDetail = (comicId, imgcomics) => {
+    if (!imgcomics) return null;
+    return imgcomics.map((item) => {
       return (
         <S.BackroundImg key={item.id}>
-          <S.ComicImg src={item} alt="" />
+          <S.ComicImg src={item.img} alt="" />
         </S.BackroundImg>
       );
     });
-  }, [chapterDetail.data]);
+  };
+  // const renderChapterDetail = useMemo(() => {
+  //   if (!chapterDetail.data.imgcomic) return null;
+  //   return chapterDetail.data.imgcomic.map((item) => {
+  //     return (
+  //       <S.BackroundImg key={item.id}>
+  //         <S.ComicImg src={item.img} alt="" />
+  //       </S.BackroundImg>
+  //     );
+  //   });
+  // }, [chapterDetail.data]);
 
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   return (
     <div>
       <div>
@@ -103,7 +153,12 @@ const ChapterPage = () => {
             <Button type="primary">
               <CaretLeftOutlined />
             </Button>
-            <S.SelectChapter>{renderChapterList}</S.SelectChapter>
+            <S.SelectChapter>
+              {renderChapterList(
+                productDetail.data.id,
+                productDetail.data.chapters
+              )}
+            </S.SelectChapter>
             <Button type="primary">
               <CaretRightOutlined />
             </Button>
@@ -116,7 +171,41 @@ const ChapterPage = () => {
           </S.MenuChapter>
         </S.HeaderContent>
 
-        {renderChapterDetail}
+        {chapterDetail.data.price ? (
+          <div>
+            <h4>
+              Bạn cần dùng{" "}
+              <span style={{ color: "red" }}>
+                {chapterDetail.data.price} xu
+              </span>{" "}
+              để mở khóa chapter này
+            </h4>
+            <>
+              <Button type="primary" onClick={showModal} danger>
+                Mở khoá
+              </Button>
+              <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                <h4>
+                  Bạn cần dùng{" "}
+                  <span style={{ color: "red" }}>
+                    {chapterDetail.data.price} xu
+                  </span>{" "}
+                  để mở khóa chapter này
+                </h4>
+                <h4>
+                  Số xu hiện tại của bạn là <span>{userInfo.data.coin}</span>,
+                  bạn có thể nạp xu tại đây
+                </h4>
+              </Modal>
+            </>
+          </div>
+        ) : (
+          renderChapterDetail(
+            chapterDetail.data.id,
+            chapterDetail.data.imgcomics
+          )
+        )}
+
         {/* <S.BackroundImg>
           <S.ComicImg src={chapterDetail.data.imgcomic} alt="" />
         </S.BackroundImg> */}

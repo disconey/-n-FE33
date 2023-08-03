@@ -1,5 +1,6 @@
 import { Checkbox, Col, Row, Select, Space } from "antd";
 import ProductCard from "layouts/UserLayout/components/ProductCard";
+import qs from "qs";
 
 import React, { useEffect, useMemo, useState } from "react";
 import * as S from "./styles";
@@ -9,44 +10,50 @@ import { getChapterListRequest } from "redux/slicers/chapter.slice";
 import { getCategoryListRequest } from "redux/slicers/category.slice";
 import { PRODUCT_LIMIT } from "constants/paging";
 import useScrollToTop from "hooks/useSrcollToTop";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { clearFilterParams, setFilterParams } from "redux/slicers/common.slice";
+import { ROUTES } from "constants/routes";
 
 const FilterSearchPage = () => {
   useScrollToTop();
-  const { state } = useLocation();
-  const [filterParams, setFilterParams] = useState({
-    categoryId: state?.categoryId ? [state?.categoryId] : [],
-    order: "",
-    statusId: [],
-  });
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const { categoryList } = useSelector((state) => state.category);
   const { productList } = useSelector((state) => state.product);
+  const { filterParams } = useSelector((state) => state.common);
 
   useEffect(() => {
     dispatch(
       getProductListRequest({
+        ...filterParams,
         page: 1,
         limit: PRODUCT_LIMIT,
       })
     );
     dispatch(getChapterListRequest());
     dispatch(getCategoryListRequest());
+
+    return () => dispatch(clearFilterParams());
   }, []);
 
-  const handleFitle = (key, values) => {
-    setFilterParams({
+  const handleFilter = (key, value) => {
+    const newFilterParams = {
       ...filterParams,
-      [key]: values,
-    });
+      [key]: value,
+    };
+    dispatch(setFilterParams(newFilterParams));
     dispatch(
       getProductListRequest({
-        ...filterParams,
-        [key]: values,
+        ...newFilterParams,
         page: 1,
         limit: PRODUCT_LIMIT,
       })
     );
+    navigate({
+      pathname: ROUTES.FITLER_SEARCH_PAGE,
+      search: qs.stringify(newFilterParams),
+    });
   };
   const pageCount = Math.ceil(productList.meta.total / productList.meta.limit);
   console.log(
@@ -92,7 +99,8 @@ const FilterSearchPage = () => {
                   <hr />
                   <Space size={[0, 8]} wrap>
                     <Checkbox.Group
-                      onChange={(values) => handleFitle("categoryId", values)}
+                      onChange={(values) => handleFilter("categoryId", values)}
+                      value={filterParams.categoryId}
                     >
                       <Row>{renderProductList}</Row>
                     </Checkbox.Group>
@@ -106,12 +114,13 @@ const FilterSearchPage = () => {
               <S.FilterSelect>
                 <Space wrap>
                   <Select
-                    defaultValue="updatedAt.desc"
+                    value={filterParams.sort}
                     style={{
                       width: 130,
                     }}
                     bordered={false}
-                    onChange={(value) => handleFitle("sort", value)}
+                    onChange={(value) => handleFilter("sort", value)}
+                    placeholder="Mới cập nhật"
                   >
                     <Select.Option value="updatedAt.desc">
                       Mới cập nhật
@@ -143,19 +152,16 @@ const FilterSearchPage = () => {
                   </Select>
 
                   <Select
-                    defaultValue="Tình trạng"
                     style={{
                       width: 150,
                     }}
                     bordered={false}
-                    onChange={(value) => handleFitle("sort", value)}
+                    onChange={(value) => handleFilter("statusId", value)}
+                    value={filterParams.status}
+                    placeholder="Tình trạng"
                   >
-                    <Select.Option value="inprocess.desc">
-                      Đang tiến hành
-                    </Select.Option>
-                    <Select.Option value="accomplished.desc">
-                      Đã hoàn thành
-                    </Select.Option>
+                    <Select.Option value="1">Đang tiến hành</Select.Option>
+                    <Select.Option value="2">Đã hoàn thành</Select.Option>
                   </Select>
                 </Space>
 

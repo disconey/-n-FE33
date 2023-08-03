@@ -14,9 +14,6 @@ const GeneralInfo = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    dispatch(getUserInfoRequest({ id: parseInt(id) }));
-  }, []);
   return (
     <S.GeneralInfo>
       <h2>Thông tin chung</h2>
