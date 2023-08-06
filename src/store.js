@@ -8,6 +8,7 @@ import commonReducer from "redux/slicers/common.slice";
 import authReducer from "redux/slicers/auth.slice";
 import reviewReducer from "redux/slicers/review.slice";
 import historyReducer from "redux/slicers/history.slice";
+import orderReducer from "redux/slicers/order.slice";
 
 import rootSaga from "redux/sagas";
 
@@ -22,6 +23,7 @@ const store = configureStore({
     auth: authReducer,
     review: reviewReducer,
     history: historyReducer,
+    order: orderReducer,
   },
   middleware: (getDefaultMiddleware) => [
     ...getDefaultMiddleware({

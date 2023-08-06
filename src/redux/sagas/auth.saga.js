@@ -70,13 +70,10 @@ function* paymentSaga(action) {
 }
 function* updateUserInfoSaga(action) {
   try {
-    const { data, callback } = action.payload;
-    const result = yield axios.patch(
-      `http://localhost:4000/users/${data.id}`,
-      data
-    );
-    yield callback();
-    yield put(updateUserInfoSuccess({ data: result.data.user }));
+    const { data, callback, id } = action.payload;
+    const result = yield axios.patch(`http://localhost:4000/users/${id}`, data);
+    // yield callback();
+    yield put(updateUserInfoSuccess({ data: result.data }));
   } catch (e) {
     yield put(updateUserInfoFailure({ error: e }));
   }

@@ -30,8 +30,12 @@ import {
   useParams,
 } from "react-router-dom/dist";
 import { ROUTES } from "constants/routes";
-import { getUserInfoRequest } from "redux/slicers/auth.slice";
+import {
+  getUserInfoRequest,
+  updateUserInfoRequest,
+} from "redux/slicers/auth.slice";
 import { addToHistoryRequest } from "redux/slicers/history.slice";
+import { orderProductRequest } from "redux/slicers/order.slice";
 const ChapterPage = () => {
   useScrollToTop();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -41,6 +45,7 @@ const ChapterPage = () => {
   const { chapterList, chapterDetail } = useSelector((state) => state.chapter);
   const { userInfo } = useSelector((state) => state.auth);
   const { productDetail } = useSelector((state) => state.product);
+  const { orderList } = useSelector((state) => state.order);
 
   const navigate = useNavigate();
   // const myTimeout = useRef(null);
@@ -124,11 +129,76 @@ const ChapterPage = () => {
     setIsModalOpen(true);
   };
   const handleOk = () => {
+    dispatch(
+      updateUserInfoRequest({
+        id: userInfo.data.id,
+        data: {
+          coin: userInfo.data.coin - chapterDetail.data.price,
+        },
+      })
+    );
+    dispatch(
+      orderProductRequest({
+        data: {
+          productName: productDetail.data.name,
+          chapterName: chapterDetail.data.name,
+          userId: userInfo.data.id,
+          price: chapterDetail.data.price,
+        },
+      })
+    );
     setIsModalOpen(false);
   };
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
+  const renderChapter = () => {
+    if (chapterDetail.data.price) {
+      <div>
+        <h4>
+          Bạn cần dùng{" "}
+          <span style={{ color: "red" }}>{chapterDetail.data.price} xu</span> để
+          mở khóa chapter này
+        </h4>
+        <>
+          <Button type="primary" onClick={showModal} danger>
+            Mở khoá
+          </Button>
+          <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+            <h4>
+              Bạn cần dùng{" "}
+              <span style={{ color: "red" }}>
+                {chapterDetail.data.price} xu
+              </span>{" "}
+              để mở khóa chapter này
+            </h4>
+            <h4>
+              Số xu hiện tại của bạn là <span>{userInfo.data.coin}</span>, bạn
+              có thể nạp xu tại đây
+            </h4>
+          </Modal>
+        </>
+      </div>;
+    } else if (orderList.data.userId === userInfo.data.id) {
+      renderChapterDetail(chapterDetail.data.id, chapterDetail.data.imgcomics);
+    } else if (userInfo.data.coin >= chapterDetail.data.price) {
+      <div>
+        <h4>Bạn không đủ xu để mở khoá chapter này</h4>
+        <h4>
+          Xin vui lòng <Link to={ROUTES.PERSONAL.PAYMENT}>Nạp tiền</Link>{" "}
+        </h4>
+      </div>;
+    } else if (userInfo.data.id) {
+      <h3>
+        Để có thể đọc chapter này bạn cần phải{" "}
+        <S.Login to={ROUTES.LOGIN}>Đăng nhập</S.Login>
+      </h3>;
+    } else {
+      renderChapterDetail(chapterDetail.data.id, chapterDetail.data.imgcomics);
+    }
+  };
+
   return (
     <div>
       <div>
@@ -170,41 +240,7 @@ const ChapterPage = () => {
             </Button>
           </S.MenuChapter>
         </S.HeaderContent>
-
-        {chapterDetail.data.price ? (
-          <div>
-            <h4>
-              Bạn cần dùng{" "}
-              <span style={{ color: "red" }}>
-                {chapterDetail.data.price} xu
-              </span>{" "}
-              để mở khóa chapter này
-            </h4>
-            <>
-              <Button type="primary" onClick={showModal} danger>
-                Mở khoá
-              </Button>
-              <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                <h4>
-                  Bạn cần dùng{" "}
-                  <span style={{ color: "red" }}>
-                    {chapterDetail.data.price} xu
-                  </span>{" "}
-                  để mở khóa chapter này
-                </h4>
-                <h4>
-                  Số xu hiện tại của bạn là <span>{userInfo.data.coin}</span>,
-                  bạn có thể nạp xu tại đây
-                </h4>
-              </Modal>
-            </>
-          </div>
-        ) : (
-          renderChapterDetail(
-            chapterDetail.data.id,
-            chapterDetail.data.imgcomics
-          )
-        )}
+        {renderChapter}
 
         {/* <S.BackroundImg>
           <S.ComicImg src={chapterDetail.data.imgcomic} alt="" />

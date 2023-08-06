@@ -203,59 +203,6 @@ const RightContent = () => {
           </S.CenterButton>
         </S.Charts>
       </div>
-      <S.Category>
-        <S.UlCategory>
-          <S.LiCategory>Tất cả</S.LiCategory>
-          <S.LiCategory>Action</S.LiCategory>
-          <S.LiCategory>Adult</S.LiCategory>
-          <S.LiCategory>Adventure</S.LiCategory>
-          <S.LiCategory>Adventure</S.LiCategory>
-          <S.LiCategory>Chuyển Sinh</S.LiCategory>
-          <S.LiCategory>Comedy</S.LiCategory>
-          <S.LiCategory>Comic</S.LiCategory>
-          <S.LiCategory>Cooking</S.LiCategory>
-          <S.LiCategory>Cổ Đại</S.LiCategory>
-          <S.LiCategory>Doujinshi</S.LiCategory>
-          <S.LiCategory>Drama</S.LiCategory>
-          <S.LiCategory>Đam Mỹ</S.LiCategory>
-          <S.LiCategory> Ecchi</S.LiCategory>
-          <S.LiCategory>Fantasy</S.LiCategory>
-          <S.LiCategory>Gender Bender</S.LiCategory>
-          <S.LiCategory>Harem</S.LiCategory>
-          <S.LiCategory>Historical</S.LiCategory>
-          <S.LiCategory>Horror</S.LiCategory>
-          <S.LiCategory>Josei</S.LiCategory>
-          <S.LiCategory>Live action</S.LiCategory>
-          <S.LiCategory>Manga</S.LiCategory>
-          <S.LiCategory>Manhua</S.LiCategory>
-          <S.LiCategory>Manhwa</S.LiCategory>
-          <S.LiCategory>Martial Arts</S.LiCategory>
-          <S.LiCategory>Mature</S.LiCategory>
-          <S.LiCategory>Mecha</S.LiCategory>
-          <S.LiCategory>Mystery</S.LiCategory>
-          <S.LiCategory>Ngôn Tình</S.LiCategory>
-          <S.LiCategory>One shot</S.LiCategory>
-          <S.LiCategory>Psychological</S.LiCategory>
-          <S.LiCategory>School Life</S.LiCategory>
-          <S.LiCategory>Sci-fi</S.LiCategory>
-          <S.LiCategory>Seinen</S.LiCategory>
-          <S.LiCategory>Shoujo Ai</S.LiCategory>
-          <S.LiCategory>Shounen Ai</S.LiCategory>
-          <S.LiCategory>Slice of Life</S.LiCategory>
-          <S.LiCategory>Smut</S.LiCategory>
-          <S.LiCategory>Soft Yaoi</S.LiCategory>
-          <S.LiCategory>Soft Yuri</S.LiCategory>
-          <S.LiCategory>Sports</S.LiCategory>
-          <S.LiCategory>Supernatural</S.LiCategory>
-          <S.LiCategory>Thiếu Nhi</S.LiCategory>
-          <S.LiCategory>Trinh Thám</S.LiCategory>
-          <S.LiCategory>Truyện scan</S.LiCategory>
-          <S.LiCategory>Tragedy</S.LiCategory>
-          <S.LiCategory>Truyện Màu</S.LiCategory>
-          <S.LiCategory>Webtoon</S.LiCategory>
-          <S.LiCategory>Xuyên Không</S.LiCategory>
-        </S.UlCategory>
-      </S.Category>
     </div>
   );
 };

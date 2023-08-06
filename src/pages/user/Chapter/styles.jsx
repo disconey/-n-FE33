@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const HeaderContent = styled.div`
@@ -41,4 +42,14 @@ export const NextChapter = styled.div`
   justify-content: center;
   gap: 10px;
   padding-top: 10px;
+`;
+
+export const Login = styled(Link)`
+  cursor: pointer;
+  color: blue;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+    color: black;
+  }
 `;

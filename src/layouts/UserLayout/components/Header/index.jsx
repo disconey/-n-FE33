@@ -72,28 +72,28 @@ function AdminHeader() {
               value={keyword}
             />
 
-            <Dropdown
-              menu={{
-                items: [
-                  {
-                    key: 1,
-                    label: "Thông tin cá nhân",
-                    onClick: () =>
-                      navigate(
-                        generatePath(ROUTES.PERSONAL.GENERALINFO, {
-                          id: userInfo.data.id,
-                        })
-                      ),
-                  },
-                  {
-                    key: 2,
-                    label: "Đăng xuất",
-                    onClick: () => dispatch(logoutRequest()),
-                  },
-                ],
-              }}
-            >
-              {userInfo.data.id ? (
+            {userInfo.data.id ? (
+              <Dropdown
+                menu={{
+                  items: [
+                    {
+                      key: 1,
+                      label: "Thông tin cá nhân",
+                      onClick: () =>
+                        navigate(
+                          generatePath(ROUTES.PERSONAL.GENERALINFO, {
+                            id: userInfo.data.id,
+                          })
+                        ),
+                    },
+                    {
+                      key: 2,
+                      label: "Đăng xuất",
+                      onClick: () => dispatch(logoutRequest()),
+                    },
+                  ],
+                }}
+              >
                 <div>
                   <Space>
                     <S.Avatar src={userInfo.data.avatar} />
@@ -102,12 +102,10 @@ function AdminHeader() {
                     </h3>
                   </Space>
                 </div>
-              ) : (
-                <Button onClick={() => navigate(ROUTES.LOGIN)}>
-                  Đăng nhập
-                </Button>
-              )}
-            </Dropdown>
+              </Dropdown>
+            ) : (
+              <Button onClick={() => navigate(ROUTES.LOGIN)}>Đăng nhập</Button>
+            )}
           </S.NavLinkContainer>
         </Col>
       </S.HeaderWrapper>

@@ -2,7 +2,6 @@ import { Button } from "antd";
 import styled from "styled-components";
 
 export const Reading = styled.div`
-  height: 500px;
   background-color: white;
 `;
 export const TitleReading = styled.div`
