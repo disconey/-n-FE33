@@ -49,7 +49,7 @@ const RightContent = () => {
         </S.CardReading>
       );
     });
-  }, [historyList.data]);
+  }, [historyList]);
   return (
     <div className="right-content">
       <S.Reading>

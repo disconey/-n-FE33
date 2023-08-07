@@ -100,7 +100,7 @@ const DetailCard = () => {
       } else {
         dispatch(
           followProductRequest({
-            productId: productDetail.data.id,
+            comicId: productDetail.data.id,
             userId: userInfo.data.id,
           })
         );

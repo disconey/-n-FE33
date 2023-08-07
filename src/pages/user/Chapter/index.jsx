@@ -240,15 +240,15 @@ const ChapterPage = () => {
               </h4>
             </div>
           ) : userInfo.data.id ? (
-            <h3>
-              Để có thể đọc chapter này bạn cần phải{" "}
-              <S.Login to={ROUTES.LOGIN}>Đăng nhập</S.Login>
-            </h3>
-          ) : (
             renderChapterDetail(
               chapterDetail.data.id,
               chapterDetail.data.imgcomics
             )
+          ) : (
+            <h3>
+              Để có thể đọc chapter này bạn cần phải{" "}
+              <S.Login to={ROUTES.LOGIN}>Đăng nhập</S.Login>
+            </h3>
           )}
         </S.HeaderContent>
 

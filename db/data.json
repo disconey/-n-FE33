@@ -148,9 +148,9 @@
     {
       "id": 1,
       "name": "Chap 1",
-      "view": 30,
+      "view": 31,
       "comicId": 1,
-      "updatedAt": 1691359678326
+      "updatedAt": 1691397968499
     },
     {
       "id": 2,
@@ -181,10 +181,10 @@
     {
       "id": 4,
       "name": "Chap 4",
-      "view": 86,
+      "view": 89,
       "comicId": 1,
       "price": 4,
-      "updatedAt": 1691359651270
+      "updatedAt": 1691398508382
     }
   ],
   "statuses": [
