@@ -2,6 +2,7 @@ import React, { useEffect, useMemo } from "react";
 import pic from "img/0313337776.jpg";
 import {
   BugOutlined,
+  DeleteOutlined,
   EyeOutlined,
   InfoCircleOutlined,
   LockOutlined,
@@ -22,7 +23,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductDetailRequest } from "redux/slicers/product.slice";
 import { getChapterListRequest } from "redux/slicers/chapter.slice";
 import { getReviewListRequest } from "redux/slicers/review.slice";
-import { Space, Table } from "antd";
+import { Space, Table, notification } from "antd";
+import {
+  followProductRequest,
+  unFollowProductRequest,
+} from "redux/slicers/follow.slice";
 
 const DetailCard = () => {
   const { id } = useParams();
@@ -30,6 +35,8 @@ const DetailCard = () => {
   const dispatch = useDispatch();
   const { productDetail } = useSelector((state) => state.product);
   const { chapterList } = useSelector((state) => state.chapter);
+  const { userInfo } = useSelector((state) => state.auth);
+
   console.log(
     "🚀 ~ file: index.jsx:30 ~ DetailCard ~ chapterList:",
     chapterList
@@ -45,7 +52,7 @@ const DetailCard = () => {
     return chapters.map((item) => {
       return (
         <S.Li>
-          <div>
+          <div style={{ display: "flex" }}>
             <S.SLink
               to={generatePath(ROUTES.CHAPTER_PAGE, {
                 comicId: comicId,
@@ -71,6 +78,39 @@ const DetailCard = () => {
     });
   };
 
+  const isFollow = useMemo(
+    () =>
+      productDetail.data.follows?.some(
+        (item) => item.userId === userInfo.data.id
+      ),
+    [productDetail.data.follows, userInfo.data.id]
+  );
+
+  const handleToggleFollow = () => {
+    if (userInfo.data.id) {
+      if (isFollow) {
+        const followData = productDetail.data.follows?.find(
+          (item) => item.userId === userInfo.data.id
+        );
+        dispatch(
+          unFollowProductRequest({
+            id: followData.id,
+          })
+        );
+      } else {
+        dispatch(
+          followProductRequest({
+            productId: productDetail.data.id,
+            userId: userInfo.data.id,
+          })
+        );
+      }
+    } else {
+      notification.error({
+        message: "Vui lòng đăng nhập để thực hiện chức năng này!",
+      });
+    }
+  };
   return (
     <div>
       <S.DetailCard>
@@ -132,11 +172,12 @@ const DetailCard = () => {
               </S.GreenButton>
               <S.BasicButton
                 type="primary"
-                icon={<TagsOutlined />}
+                icon={isFollow ? <DeleteOutlined /> : <TagsOutlined />}
                 size={"large"}
                 className="blue"
+                onClick={() => handleToggleFollow()}
               >
-                Theo dõi
+                {isFollow ? `Bỏ theo dõi` : `Theo dõi`}
               </S.BasicButton>
               <S.YellowButton
                 type="primary"

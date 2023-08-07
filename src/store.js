@@ -9,6 +9,7 @@ import authReducer from "redux/slicers/auth.slice";
 import reviewReducer from "redux/slicers/review.slice";
 import historyReducer from "redux/slicers/history.slice";
 import orderReducer from "redux/slicers/order.slice";
+import followReducer from "redux/slicers/follow.slice";
 
 import rootSaga from "redux/sagas";
 
@@ -24,6 +25,7 @@ const store = configureStore({
     review: reviewReducer,
     history: historyReducer,
     order: orderReducer,
+    follow: followReducer,
   },
   middleware: (getDefaultMiddleware) => [
     ...getDefaultMiddleware({

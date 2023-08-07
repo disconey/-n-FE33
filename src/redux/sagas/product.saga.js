@@ -21,7 +21,7 @@ function* getProductListSaga(action) {
 
     const result = yield axios.get(`http://localhost:4000/comics`, {
       params: {
-        _embed: ["chapters", "reviews"],
+        _embed: ["chapters", "reviews", "follows"],
         _expand: ["category", "status"],
         _page: page,
         _limit: limit,
@@ -52,7 +52,7 @@ function* getProductDetailSaga(action) {
     const result = yield axios.get(`http://localhost:4000/comics/${id}`, {
       params: {
         _expand: ["category", "status"],
-        _embed: ["chapters", "reviews"],
+        _embed: ["chapters", "follows", "reviews"],
       },
     });
     yield put(getProductDetailSuccess({ data: result.data }));

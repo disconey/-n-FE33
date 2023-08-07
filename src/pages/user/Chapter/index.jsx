@@ -153,52 +153,6 @@ const ChapterPage = () => {
     setIsModalOpen(false);
   };
 
-  const renderChapter = () => {
-    if (chapterDetail.data.price) {
-      <div>
-        <h4>
-          Bạn cần dùng{" "}
-          <span style={{ color: "red" }}>{chapterDetail.data.price} xu</span> để
-          mở khóa chapter này
-        </h4>
-        <>
-          <Button type="primary" onClick={showModal} danger>
-            Mở khoá
-          </Button>
-          <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-            <h4>
-              Bạn cần dùng{" "}
-              <span style={{ color: "red" }}>
-                {chapterDetail.data.price} xu
-              </span>{" "}
-              để mở khóa chapter này
-            </h4>
-            <h4>
-              Số xu hiện tại của bạn là <span>{userInfo.data.coin}</span>, bạn
-              có thể nạp xu tại đây
-            </h4>
-          </Modal>
-        </>
-      </div>;
-    } else if (orderList.data.userId === userInfo.data.id) {
-      renderChapterDetail(chapterDetail.data.id, chapterDetail.data.imgcomics);
-    } else if (userInfo.data.coin >= chapterDetail.data.price) {
-      <div>
-        <h4>Bạn không đủ xu để mở khoá chapter này</h4>
-        <h4>
-          Xin vui lòng <Link to={ROUTES.PERSONAL.PAYMENT}>Nạp tiền</Link>{" "}
-        </h4>
-      </div>;
-    } else if (userInfo.data.id) {
-      <h3>
-        Để có thể đọc chapter này bạn cần phải{" "}
-        <S.Login to={ROUTES.LOGIN}>Đăng nhập</S.Login>
-      </h3>;
-    } else {
-      renderChapterDetail(chapterDetail.data.id, chapterDetail.data.imgcomics);
-    }
-  };
-
   return (
     <div>
       <div>
@@ -240,7 +194,63 @@ const ChapterPage = () => {
             </Button>
           </S.MenuChapter>
         </S.HeaderContent>
-        {renderChapter}
+        <S.HeaderContent>
+          {orderList.data.userId ? (
+            renderChapterDetail(
+              chapterDetail.data.id,
+              chapterDetail.data.imgcomics
+            )
+          ) : chapterDetail.data.price ? (
+            <div>
+              <h4>
+                Bạn cần dùng{" "}
+                <span style={{ color: "red" }}>
+                  {chapterDetail.data.price} xu
+                </span>{" "}
+                để mở khóa chapter này
+              </h4>
+              <>
+                <Button type="primary" onClick={showModal} danger>
+                  Mở khoá
+                </Button>
+                <Modal
+                  open={isModalOpen}
+                  onOk={handleOk}
+                  onCancel={handleCancel}
+                >
+                  <h4>
+                    Bạn cần dùng{" "}
+                    <span style={{ color: "red" }}>
+                      {chapterDetail.data.price} xu
+                    </span>{" "}
+                    để mở khóa chapter này
+                  </h4>
+                  <h4>
+                    Số xu hiện tại của bạn là <span>{userInfo.data.coin}</span>,
+                    bạn có thể nạp xu tại đây
+                  </h4>
+                </Modal>
+              </>
+            </div>
+          ) : userInfo.data.coin >= chapterDetail.data.price ? (
+            <div>
+              <h4>Bạn không đủ xu để mở khoá chapter này</h4>
+              <h4>
+                Xin vui lòng <Link to={ROUTES.PERSONAL.PAYMENT}>Nạp tiền</Link>{" "}
+              </h4>
+            </div>
+          ) : userInfo.data.id ? (
+            <h3>
+              Để có thể đọc chapter này bạn cần phải{" "}
+              <S.Login to={ROUTES.LOGIN}>Đăng nhập</S.Login>
+            </h3>
+          ) : (
+            renderChapterDetail(
+              chapterDetail.data.id,
+              chapterDetail.data.imgcomics
+            )
+          )}
+        </S.HeaderContent>
 
         {/* <S.BackroundImg>
           <S.ComicImg src={chapterDetail.data.imgcomic} alt="" />
