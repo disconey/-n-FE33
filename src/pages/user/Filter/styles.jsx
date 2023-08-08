@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 const { CheckableTag } = Tag;
 export const MainFilterSearch = styled.div`
-  display: flex;
   width: 100%;
   max-width: 1000px;
   margin-left: auto;

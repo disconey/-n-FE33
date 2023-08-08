@@ -16,7 +16,11 @@ import {
 function* getChapterListSaga(action) {
   try {
     const result = yield axios.get("http://localhost:4000/chapters");
-    yield put(getChapterListSuccess({ data: result.data }));
+    yield put(
+      getChapterListSuccess({
+        data: result.data,
+      })
+    );
   } catch (e) {
     yield put(getChapterListFailure("Đã có lỗi xảy ra!"));
   }
@@ -30,7 +34,11 @@ function* getChapterDetailSaga(action) {
         _embed: "imgcomics",
       },
     });
-    yield put(getChapterDetailSuccess({ data: result.data }));
+    yield put(
+      getChapterDetailSuccess({
+        data: result.data,
+      })
+    );
   } catch (e) {
     yield put(getChapterDetailFailure("Đã có lỗi xảy ra!"));
   }

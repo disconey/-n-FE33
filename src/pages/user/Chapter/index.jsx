@@ -9,12 +9,14 @@ import {
   RightOutlined,
   UnorderedListOutlined,
 } from "@ant-design/icons";
-import { Button, Modal } from "antd";
+import { Breadcrumb, Button, Modal, Space } from "antd";
 import pic from "img/Chapter/0946759826_01-170.jpg";
 import useScrollToTop from "hooks/useSrcollToTop";
 import Comment from "layouts/UserLayout/components/Comment";
 import * as S from "./styles";
 import { useDispatch, useSelector } from "react-redux";
+import qs from "qs";
+
 import {
   clearChapterRequest,
   getChapterDetailRequest,
@@ -26,6 +28,7 @@ import { getProductDetailRequest } from "redux/slicers/product.slice";
 import {
   Link,
   generatePath,
+  useLocation,
   useNavigate,
   useParams,
 } from "react-router-dom/dist";
@@ -36,24 +39,39 @@ import {
 } from "redux/slicers/auth.slice";
 import { addToHistoryRequest } from "redux/slicers/history.slice";
 import { orderProductRequest } from "redux/slicers/order.slice";
+import { setFilterParams } from "redux/slicers/common.slice";
+import { CHAPTER_LIMIT } from "constants/paging";
 const ChapterPage = () => {
   useScrollToTop();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { comicId, chapterId } = useParams();
+  let { state } = useLocation();
 
   const dispatch = useDispatch();
   const { chapterList, chapterDetail } = useSelector((state) => state.chapter);
   const { userInfo } = useSelector((state) => state.auth);
   const { productDetail } = useSelector((state) => state.product);
   const { orderList } = useSelector((state) => state.order);
+  const { filterParams } = useSelector((state) => state.common);
 
   const navigate = useNavigate();
   // const myTimeout = useRef(null);
 
   useEffect(() => {
-    dispatch(getChapterListRequest({ id: parseInt(comicId) }));
+    dispatch(
+      getChapterListRequest({
+        id: parseInt(comicId),
+      })
+    );
     dispatch(getProductDetailRequest({ id: parseInt(comicId) }));
-    dispatch(getChapterDetailRequest({ id: parseInt(chapterId) }));
+    dispatch(
+      getChapterDetailRequest({
+        id: parseInt(chapterId),
+        ...filterParams,
+        page: 1,
+        limit: CHAPTER_LIMIT,
+      })
+    );
     return () => dispatch(clearChapterRequest());
   }, []);
 
@@ -153,12 +171,87 @@ const ChapterPage = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+  const handleNextChapter = () => {};
 
+  const handleFilter = (key, value) => {
+    const newFilterParams = {
+      ...filterParams,
+      [key]: value,
+    };
+    dispatch(setFilterParams(newFilterParams));
+    dispatch(
+      getProductDetailRequest({
+        ...newFilterParams,
+        page: 1,
+        limit: CHAPTER_LIMIT,
+      })
+    );
+    navigate({
+      pathname: ROUTES.FITLER_SEARCH_PAGE,
+      search: qs.stringify(newFilterParams),
+    });
+  };
   return (
     <div>
       <div>
         <S.HeaderContent>
-          <S.TitleChap>Chiến binh học đường: Chapter 40</S.TitleChap>
+          <Breadcrumb
+            items={[
+              {
+                title: (
+                  <Link to={ROUTES.USER.HOME}>
+                    <Space>
+                      <HomeOutlined />
+                      <span>Trang chủ</span>
+                    </Space>
+                  </Link>
+                ),
+              },
+              {
+                title: (
+                  <Link to={ROUTES.FITLER_SEARCH_PAGE}>Danh sách truyện</Link>
+                ),
+              },
+              {
+                title: (
+                  <Link
+                    to={{
+                      pathname: ROUTES.FITLER_SEARCH_PAGE,
+                      search: qs.stringify({
+                        ...filterParams,
+                        categoryId: [productDetail.data.categoryId],
+                      }),
+                    }}
+                  >
+                    {productDetail.data.category?.name}
+                  </Link>
+                ),
+                onClick: () =>
+                  dispatch(
+                    setFilterParams({
+                      ...filterParams,
+                      categoryId: [productDetail.data.categoryId],
+                    })
+                  ),
+              },
+              {
+                title: <Link>{productDetail.data.name}</Link>,
+                onClick: () =>
+                  navigate(
+                    generatePath(ROUTES.DETAIL_CARD, {
+                      id: productDetail.data.id,
+                    })
+                  ),
+              },
+              {
+                title: chapterDetail.data.name,
+              },
+            ]}
+            style={{ marginBottom: 8 }}
+          />
+          <S.TitleChap>
+            {productDetail.data.name}: {chapterDetail.data.name}
+          </S.TitleChap>
           <S.MenuChapter>
             <Button type="primary">
               <HomeOutlined />
@@ -178,7 +271,10 @@ const ChapterPage = () => {
             <Button type="primary">
               <CaretLeftOutlined />
             </Button>
-            <S.SelectChapter>
+            <S.SelectChapter
+              onChange={(value) => handleFilter("statusId", value)}
+              value={filterParams.status}
+            >
               {renderChapterList(
                 productDetail.data.id,
                 productDetail.data.chapters

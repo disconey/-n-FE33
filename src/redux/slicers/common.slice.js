@@ -14,6 +14,7 @@ const initialState = {
     keyword: locationSearch.keyword || "",
     sort: locationSearch.sort || undefined,
     status: locationSearch.statusId || undefined,
+    chapter: locationSearch.chapterId || undefined,
   },
 };
 

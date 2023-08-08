@@ -47,15 +47,26 @@ function* getProductListSaga(action) {
 }
 function* getProductDetailSaga(action) {
   try {
-    const { id } = action.payload || {};
+    const { id, page, limit } = action.payload || {};
 
     const result = yield axios.get(`http://localhost:4000/comics/${id}`, {
       params: {
         _expand: ["category", "status"],
         _embed: ["chapters", "follows", "reviews"],
+        _page: page,
+        _limit: limit,
       },
     });
-    yield put(getProductDetailSuccess({ data: result.data }));
+    yield put(
+      getProductDetailSuccess({
+        data: result.data,
+        meta: {
+          page: page,
+          limit: limit,
+          total: parseInt(result.headers["x-total-count"]),
+        },
+      })
+    );
   } catch (e) {
     yield put(getProductDetailFailure("Đã có lỗi xảy ra!"));
   }

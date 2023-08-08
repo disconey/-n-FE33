@@ -4,6 +4,7 @@ import {
   BugOutlined,
   DeleteOutlined,
   EyeOutlined,
+  HomeOutlined,
   InfoCircleOutlined,
   LockOutlined,
   ReadOutlined,
@@ -14,20 +15,22 @@ import {
 } from "@ant-design/icons";
 
 import useScrollToTop from "hooks/useSrcollToTop";
+import qs from "qs";
 
 import * as S from "./styles";
 import { ROUTES } from "constants/routes";
 import Comment from "layouts/UserLayout/components/Comment";
-import { generatePath, useParams } from "react-router-dom/dist";
+import { Link, generatePath, useParams } from "react-router-dom/dist";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetailRequest } from "redux/slicers/product.slice";
 import { getChapterListRequest } from "redux/slicers/chapter.slice";
 import { getReviewListRequest } from "redux/slicers/review.slice";
-import { Space, Table, notification } from "antd";
+import { Breadcrumb, Space, Table, notification } from "antd";
 import {
   followProductRequest,
   unFollowProductRequest,
 } from "redux/slicers/follow.slice";
+import { setFilterParams } from "redux/slicers/common.slice";
 
 const DetailCard = () => {
   const { id } = useParams();
@@ -36,6 +39,7 @@ const DetailCard = () => {
   const { productDetail } = useSelector((state) => state.product);
   const { chapterList } = useSelector((state) => state.chapter);
   const { userInfo } = useSelector((state) => state.auth);
+  const { filterParams } = useSelector((state) => state.common);
 
   console.log(
     "🚀 ~ file: index.jsx:30 ~ DetailCard ~ chapterList:",
@@ -114,6 +118,51 @@ const DetailCard = () => {
   return (
     <div>
       <S.DetailCard>
+        <Breadcrumb
+          items={[
+            {
+              title: (
+                <Link to={ROUTES.USER.HOME}>
+                  <Space>
+                    <HomeOutlined />
+                    <span>Trang chủ</span>
+                  </Space>
+                </Link>
+              ),
+            },
+            {
+              title: (
+                <Link to={ROUTES.FITLER_SEARCH_PAGE}>Danh sách sản phẩm</Link>
+              ),
+            },
+            {
+              title: (
+                <Link
+                  to={{
+                    pathname: ROUTES.FITLER_SEARCH_PAGE,
+                    search: qs.stringify({
+                      ...filterParams,
+                      categoryId: [productDetail.data.categoryId],
+                    }),
+                  }}
+                >
+                  {productDetail.data.category?.name}
+                </Link>
+              ),
+              onClick: () =>
+                dispatch(
+                  setFilterParams({
+                    ...filterParams,
+                    categoryId: [productDetail.data.categoryId],
+                  })
+                ),
+            },
+            {
+              title: productDetail.data.name,
+            },
+          ]}
+          style={{ marginBottom: 8 }}
+        />
         <S.ContentDetail>
           <S.Img src={pic} alt="" />
           <div>

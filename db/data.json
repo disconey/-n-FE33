@@ -148,16 +148,16 @@
     {
       "id": 1,
       "name": "Chap 1",
-      "view": 39,
+      "view": 91,
       "comicId": 1,
-      "updatedAt": 1691493577666
+      "updatedAt": 1691503257994
     },
     {
       "id": 2,
       "name": "Chap 2",
-      "view": 15,
+      "view": 16,
       "comicId": 1,
-      "updatedAt": 1691062969188
+      "updatedAt": 1691501622662
     },
     {
       "id": 1,
