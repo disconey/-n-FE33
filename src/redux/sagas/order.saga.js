@@ -13,12 +13,7 @@ import {
 
 function* getOrderListSaga(action) {
   try {
-    const { userId } = action.payload;
-    const result = yield axios.get("http://localhost:4000/orders", {
-      params: {
-        userId: userId,
-      },
-    });
+    const result = yield axios.get("http://localhost:4000/orders");
     yield put(getOrderListSuccess({ data: result.data }));
   } catch (e) {
     yield put(getOrderListFailure({ error: "Lỗi" }));

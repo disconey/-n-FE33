@@ -49,7 +49,11 @@ function* registerSaga(action) {
 function* getUserInfoSaga(action) {
   try {
     const { id } = action.payload || {};
-    const result = yield axios.get(`http://localhost:4000/users/${id}`);
+    const result = yield axios.get(`http://localhost:4000/users/${id}`, {
+      params: {
+        _embed: "orders",
+      },
+    });
     yield put(getUserInfoSuccess({ data: result.data }));
   } catch (e) {
     yield put(getUserInfoFailure({ error: "Lỗi" }));

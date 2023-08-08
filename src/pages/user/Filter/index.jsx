@@ -1,4 +1,4 @@
-import { Checkbox, Col, Row, Select, Space } from "antd";
+import { Checkbox, Col, Pagination, Row, Select, Space } from "antd";
 import ProductCard from "layouts/UserLayout/components/ProductCard";
 import qs from "qs";
 
@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductListRequest } from "redux/slicers/product.slice";
 import { getChapterListRequest } from "redux/slicers/chapter.slice";
 import { getCategoryListRequest } from "redux/slicers/category.slice";
-import { PRODUCT_LIMIT } from "constants/paging";
+import { ADMIN_TABLE_LIMIT, PRODUCT_LIMIT } from "constants/paging";
 import useScrollToTop from "hooks/useSrcollToTop";
 import { useLocation, useNavigate } from "react-router-dom";
 import { clearFilterParams, setFilterParams } from "redux/slicers/common.slice";
@@ -55,21 +55,12 @@ const FilterSearchPage = () => {
       search: qs.stringify(newFilterParams),
     });
   };
-  const pageCount = Math.ceil(productList.meta.total / productList.meta.limit);
-  console.log(
-    "🚀 ~ file: index.jsx:50 ~ FilterSearchPage ~ pageCount:",
-    pageCount
-  );
-
-  const handlePageClick = (event) => {
-    console.log(
-      "🚀 ~ file: index.jsx:50 ~ handlePageClick ~ event:",
-      event.selected
-    );
+  const handleChangePage = (page) => {
+    console.log("🚀 ~ file: index.jsx:64 ~ handleChangePage ~ page:", page);
     dispatch(
       getProductListRequest({
         ...filterParams,
-        page: event.selected + 1,
+        page: page,
         limit: PRODUCT_LIMIT,
       })
     );
@@ -172,14 +163,12 @@ const FilterSearchPage = () => {
                 <ProductCard />
               </Row>
               <Row justify="center">
-                <S.Pagination
-                  breakLabel="..."
-                  nextLabel="next >"
-                  onPageChange={handlePageClick}
-                  pageRangeDisplayed={5}
-                  pageCount={pageCount}
-                  previousLabel="< previous"
-                  renderOnZeroPageCount={null}
+                <Pagination
+                  current={productList.meta.page}
+                  pageSize={PRODUCT_LIMIT}
+                  total={productList.meta.total}
+                  onChange={(page) => handleChangePage(page)}
+                  style={{ margin: "16px auto 0" }}
                 />
               </Row>
             </S.LeftCard>

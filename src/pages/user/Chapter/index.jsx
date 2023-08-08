@@ -144,6 +144,7 @@ const ChapterPage = () => {
           chapterName: chapterDetail.data.name,
           userId: userInfo.data.id,
           price: chapterDetail.data.price,
+          chapterId: chapterDetail.data.id,
         },
       })
     );
@@ -195,11 +196,18 @@ const ChapterPage = () => {
           </S.MenuChapter>
         </S.HeaderContent>
         <S.HeaderContent>
-          {orderList.data.userId ? (
+          {orderList?.data.userId === userInfo.data.id ? (
             renderChapterDetail(
               chapterDetail.data.id,
               chapterDetail.data.imgcomics
             )
+          ) : userInfo.data.coin >= chapterDetail.data.price ? (
+            <div>
+              <h4>Bạn không đủ xu để mở khoá chapter này</h4>
+              <h4>
+                Xin vui lòng <Link to={ROUTES.PERSONAL.PAYMENT}>Nạp tiền</Link>{" "}
+              </h4>
+            </div>
           ) : chapterDetail.data.price ? (
             <div>
               <h4>
@@ -231,13 +239,6 @@ const ChapterPage = () => {
                   </h4>
                 </Modal>
               </>
-            </div>
-          ) : userInfo.data.coin >= chapterDetail.data.price ? (
-            <div>
-              <h4>Bạn không đủ xu để mở khoá chapter này</h4>
-              <h4>
-                Xin vui lòng <Link to={ROUTES.PERSONAL.PAYMENT}>Nạp tiền</Link>{" "}
-              </h4>
             </div>
           ) : userInfo.data.id ? (
             renderChapterDetail(

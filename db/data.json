@@ -148,9 +148,9 @@
     {
       "id": 1,
       "name": "Chap 1",
-      "view": 31,
+      "view": 39,
       "comicId": 1,
-      "updatedAt": 1691397968499
+      "updatedAt": 1691493577666
     },
     {
       "id": 2,
@@ -181,10 +181,18 @@
     {
       "id": 4,
       "name": "Chap 4",
-      "view": 89,
+      "view": 119,
       "comicId": 1,
       "price": 4,
-      "updatedAt": 1691398508382
+      "updatedAt": 1691495004554
+    },
+    {
+      "id": 5,
+      "name": "Chap 5",
+      "view": 121,
+      "comicId": 1,
+      "price": 4,
+      "updatedAt": 1691493907120
     }
   ],
   "statuses": [
@@ -253,6 +261,10 @@
     {
       "chapterId": 4,
       "img": "https://cdn2.vlogtruyen5.net/cdn/chapter/2023/04/18/6827899148_20230409_225827_010.jpg"
+    },
+    {
+      "chapterId": 5,
+      "img": "https://cdn2.vlogtruyen5.net/cdn/chapter/2023/04/18/6827899148_20230409_225827_010.jpg"
     }
   ],
   "orders": [
@@ -266,5 +278,13 @@
       "id": 1
     }
   ],
-  "follows": []
+  "follows": [
+    {
+      "comicId": 1,
+      "userId": 3,
+      "createdAt": 1691495473245,
+      "updatedAt": 1691495473245,
+      "id": 1
+    }
+  ]
 }

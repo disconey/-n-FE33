@@ -177,7 +177,7 @@ const AccountInfo = () => {
           >
             <Upload
               name="avatar"
-              listType="picture-card"
+              listType="picture-circle"
               className="avatar-uploader"
               showUploadList={false}
               action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
@@ -185,13 +185,7 @@ const AccountInfo = () => {
               onChange={handleChange}
             >
               {imageUrl ? (
-                <img
-                  src={imageUrl}
-                  alt="avatar"
-                  style={{
-                    width: "100%",
-                  }}
-                />
+                <img src={imageUrl} alt="avatar" style={{ width: "100%" }} />
               ) : (
                 uploadButton
               )}
