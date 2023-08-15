@@ -75,9 +75,9 @@ const Comment = () => {
   }, [reviewList.data]);
   return (
     <S.Container>
-      <S.H4>
-        <CommentOutlined /> 2,145 Bình Luận
-      </S.H4>
+      <h4>
+        <CommentOutlined /> Bình Luận (2,145)
+      </h4>
       {userInfo.data.id ? (
         <S.TopComment>
           <S.Avatar src={userInfo.data.avatar} alt="" />

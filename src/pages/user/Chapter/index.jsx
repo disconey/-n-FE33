@@ -336,16 +336,23 @@ const ChapterPage = () => {
                 </Modal>
               </>
             </div>
-          ) : userInfo.data.id ? (
-            renderChapterDetail(
-              chapterDetail.data.id,
-              chapterDetail.data.imgcomics
-            )
-          ) : (
+          ) : userInfo.data.coin >= chapterDetail.data.price ? (
+            <div>
+              <h4>Bạn không đủ xu để mở khoá chapter này</h4>
+              <h4>
+                Xin vui lòng <Link to={ROUTES.PERSONAL.PAYMENT}>Nạp tiền</Link>{" "}
+              </h4>
+            </div>
+          ) : !userInfo.data.id ? (
             <h3>
               Để có thể đọc chapter này bạn cần phải{" "}
               <S.Login to={ROUTES.LOGIN}>Đăng nhập</S.Login>
             </h3>
+          ) : (
+            renderChapterDetail(
+              chapterDetail.data.id,
+              chapterDetail.data.imgcomics
+            )
           )}
         </S.HeaderContent>
 

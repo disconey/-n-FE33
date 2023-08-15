@@ -2,19 +2,14 @@ import { Button } from "antd";
 import styled from "styled-components";
 
 export const HomeWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  padding-bottom: 10px;
-  width: 100%;
+  padding: 0 16px;
   max-width: 1170px;
   margin-left: auto;
   margin-right: auto;
 `;
 
 export const Left = styled.div`
-  background-color: white;
-  padding: 10px;
+  margin-top: 16px;
 `;
 
 export const CenterButton = styled.div`
@@ -27,6 +22,19 @@ export const CustomButton = styled(Button)`
   text-align: center;
 `;
 
-export const Title = styled.h3`
-  margin-left: 13px;
+export const Title = styled.h2`
+  border-bottom: 2px solid #6197f1;
+`;
+
+export const TitleWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+`;
+
+export const ComicWrapper = styled.div`
+  padding: 12px 16px 16px;
+  margin-bottom: 16px;
+  background-color: white;
 `;

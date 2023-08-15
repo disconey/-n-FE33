@@ -65,7 +65,6 @@ const FilterSearchPage = () => {
     });
   };
   const handleChangePage = (page) => {
-    console.log("🚀 ~ file: index.jsx:64 ~ handleChangePage ~ page:", page);
     dispatch(
       getProductListRequest({
         ...filterParams,
@@ -77,135 +76,127 @@ const FilterSearchPage = () => {
   const renderProductList = useMemo(() => {
     return categoryList.data.map((item) => {
       return (
-        <Col span={12}>
-          <Checkbox key={item.id} value={item.id}>
-            {item.name}
-          </Checkbox>
+        <Col span={12} key={item.id}>
+          <Checkbox value={item.id}>{item.name}</Checkbox>
         </Col>
       );
     });
   }, [categoryList.data]);
   return (
-    <div>
-      <S.MainFilterSearch>
-        <Breadcrumb
-          items={[
-            {
-              title: (
-                <Link to={ROUTES.USER.HOME}>
-                  <Space>
-                    <HomeOutlined />
-                    <span>Trang chủ</span>
+    <S.MainFilterSearch>
+      <Breadcrumb
+        items={[
+          {
+            title: (
+              <Link to={ROUTES.USER.HOME}>
+                <Space>
+                  <HomeOutlined />
+                  <span>Trang chủ</span>
+                </Space>
+              </Link>
+            ),
+          },
+          {
+            title: "Danh sách sản phẩm",
+          },
+        ]}
+        style={{ margin: "16px 0" }}
+      />
+      <S.MainFilterContainer>
+        <Row gutter={[24, 16]}>
+          <Col lg={7} md={8} xs={24}>
+            <S.FilterSearch>
+              <S.Type>
+                <>
+                  <S.FilterTitle>
+                    <h3>Thể loại</h3>
+                  </S.FilterTitle>
+                  <Space size={[0, 8]} wrap>
+                    <Checkbox.Group
+                      onChange={(values) => handleFilter("categoryId", values)}
+                      value={filterParams.categoryId}
+                    >
+                      <Row>{renderProductList}</Row>
+                    </Checkbox.Group>
                   </Space>
-                </Link>
-              ),
-            },
-            {
-              title: "Danh sách sản phẩm",
-            },
-          ]}
-        />
-        <div style={{ display: "flex" }}>
-          <Row gutter={[24, 16]}>
-            <Col lg={8} md={8} sm={24}>
-              <S.FilterSearch>
-                <S.Type>
-                  <>
-                    <span>
-                      <h3>Thể loại</h3>
-                    </span>
-                    <hr />
-                    <Space size={[0, 8]} wrap>
-                      <Checkbox.Group
-                        onChange={(values) =>
-                          handleFilter("categoryId", values)
-                        }
-                        value={filterParams.categoryId}
-                      >
-                        <Row>{renderProductList}</Row>
-                      </Checkbox.Group>
-                    </Space>
-                  </>
-                </S.Type>
-              </S.FilterSearch>
-            </Col>
-            <Col lg={16} md={16} sm={24}>
-              <S.LeftCard>
-                <S.FilterSelect>
-                  <Space wrap>
-                    <Select
-                      value={filterParams.sort}
-                      style={{
-                        width: 130,
-                      }}
-                      bordered={false}
-                      onChange={(value) => handleFilter("sort", value)}
-                      placeholder="Mới cập nhật"
-                    >
-                      <Select.Option value="updatedAt.desc">
-                        Mới cập nhật
-                      </Select.Option>
-                      <Select.Option value="createdAt.desc">
-                        Mới đăng
-                      </Select.Option>
-                    </Select>
+                </>
+              </S.Type>
+            </S.FilterSearch>
+          </Col>
+          <Col lg={17} md={16} xs={24}>
+            <S.LeftCard>
+              <S.FilterSelect>
+                <Space wrap>
+                  <Select
+                    value={filterParams.sort}
+                    style={{
+                      width: 130,
+                    }}
+                    bordered={false}
+                    onChange={(value) => handleFilter("sort", value)}
+                    placeholder="Mới cập nhật"
+                  >
+                    <Select.Option value="updatedAt.desc">
+                      Mới cập nhật
+                    </Select.Option>
+                    <Select.Option value="createdAt.desc">
+                      Mới đăng
+                    </Select.Option>
+                  </Select>
 
-                    <Select
-                      defaultValue="dayranking"
-                      style={{
-                        width: 180,
-                      }}
-                      bordered={false}
-                    >
-                      <Select.Option value="dayranking">
-                        Bảng xếp hạng [ngày]
-                      </Select.Option>
-                      <Select.Option value="weeklyranking">
-                        Bảng xếp hạng [tuần]
-                      </Select.Option>
-                      <Select.Option value="monthlyranking">
-                        Bảng xếp hạng [tháng]
-                      </Select.Option>
-                      <Select.Option value="allranking">
-                        Bảng xếp hạng [toàn]
-                      </Select.Option>
-                    </Select>
+                  <Select
+                    defaultValue="dayranking"
+                    style={{
+                      width: 180,
+                    }}
+                    bordered={false}
+                  >
+                    <Select.Option value="dayranking">
+                      Bảng xếp hạng [ngày]
+                    </Select.Option>
+                    <Select.Option value="weeklyranking">
+                      Bảng xếp hạng [tuần]
+                    </Select.Option>
+                    <Select.Option value="monthlyranking">
+                      Bảng xếp hạng [tháng]
+                    </Select.Option>
+                    <Select.Option value="allranking">
+                      Bảng xếp hạng [toàn]
+                    </Select.Option>
+                  </Select>
 
-                    <Select
-                      style={{
-                        width: 150,
-                      }}
-                      bordered={false}
-                      onChange={(value) => handleFilter("statusId", value)}
-                      value={filterParams.status}
-                      placeholder="Tình trạng"
-                    >
-                      <Select.Option value="1">Đang tiến hành</Select.Option>
-                      <Select.Option value="2">Đã hoàn thành</Select.Option>
-                    </Select>
-                  </Space>
+                  <Select
+                    style={{
+                      width: 150,
+                    }}
+                    bordered={false}
+                    onChange={(value) => handleFilter("statusId", value)}
+                    value={filterParams.status}
+                    placeholder="Tình trạng"
+                  >
+                    <Select.Option value="1">Đang tiến hành</Select.Option>
+                    <Select.Option value="2">Đã hoàn thành</Select.Option>
+                  </Select>
+                </Space>
+              </S.FilterSelect>
 
-                  <hr />
-                </S.FilterSelect>
-
-                <Row gutter={[24, 16]}>
-                  <ProductCard />
-                </Row>
-                <Row justify="center">
-                  <Pagination
-                    current={productList.meta.page}
-                    pageSize={PRODUCT_LIMIT}
-                    total={productList.meta.total}
-                    onChange={(page) => handleChangePage(page)}
-                    style={{ margin: "16px auto 0" }}
-                  />
-                </Row>
-              </S.LeftCard>
-            </Col>
-          </Row>
-        </div>
-      </S.MainFilterSearch>
-    </div>
+              <Row gutter={[16, 16]}>
+                <ProductCard />
+              </Row>
+              <Row justify="center">
+                <Pagination
+                  current={productList.meta.page}
+                  pageSize={PRODUCT_LIMIT}
+                  total={productList.meta.total}
+                  onChange={(page) => handleChangePage(page)}
+                  style={{ margin: "16px auto 0" }}
+                />
+              </Row>
+            </S.LeftCard>
+          </Col>
+        </Row>
+      </S.MainFilterContainer>
+    </S.MainFilterSearch>
   );
 };
 

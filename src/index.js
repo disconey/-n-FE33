@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import App from "./App";
 import { store } from "./store";
 import reportWebVitals from "./reportWebVitals";
+import { ConfigProvider } from "antd";
 import "./index.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -14,7 +15,15 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <Provider store={store}>
-      <App />
+      <ConfigProvider
+        theme={{
+          token: {
+            colorPrimary: "#4183f7",
+          },
+        }}
+      >
+        <App />
+      </ConfigProvider>
     </Provider>
   </BrowserRouter>
 );
