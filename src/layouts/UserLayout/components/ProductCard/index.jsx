@@ -18,6 +18,7 @@ const ProductCard = () => {
   const renderProductChapter = (comicId, chapters) => {
     if (!chapters) return null;
     return chapters.map((item, index) => {
+      console.log("🚀 ~ file: index.jsx:21 ~ returnchapters.map ~ item:", item);
       if (index > 2) return null;
       return (
         <S.TextContent>
@@ -43,31 +44,37 @@ const ProductCard = () => {
     <>
       {productList.data.map((item) => {
         return (
-          <Col key={item.id} lg={6} md={8} xs={12}>
+          <Col key={item.id} lg={6} md={12} xs={12}>
             <S.CardItem>
-              <Link to={generatePath(ROUTES.DETAIL_CARD, { id: item.id })}>
+              <Link
+                to={generatePath(ROUTES.DETAIL_CARD, { id: item.id })}
+                style={{ display: "block", position: "relative" }}
+              >
                 <S.Img src={item.avatar} alt="" />
+                <S.SideImg>
+                  <Row gutter={[16, 16]} justify="center">
+                    <S.ItemSideIcon>
+                      <EyeOutlined />
+                      <S.Text>333</S.Text>
+                    </S.ItemSideIcon>
+                    <S.ItemSideIcon>
+                      <MessageOutlined />
+                      <S.Text>{item.reviews?.length}</S.Text>
+                    </S.ItemSideIcon>
+                    <S.ItemSideIcon>
+                      <HeartOutlined />
+                      <S.Text>111</S.Text>
+                    </S.ItemSideIcon>
+                  </Row>
+                </S.SideImg>
               </Link>
-              <S.SideImg>
-                <Row gutter={[16, 16]} justify="center">
-                  <S.ItemSideIcon>
-                    <EyeOutlined />
-                    <S.Text>333</S.Text>
-                  </S.ItemSideIcon>
-                  <S.ItemSideIcon>
-                    <MessageOutlined />
-                    <S.Text>{item.reviews?.length}</S.Text>
-                  </S.ItemSideIcon>
-                  <S.ItemSideIcon>
-                    <HeartOutlined />
-                    <S.Text>111</S.Text>
-                  </S.ItemSideIcon>
-                </Row>
-              </S.SideImg>
+
               <S.SLink to={generatePath(ROUTES.DETAIL_CARD, { id: item.id })}>
                 <S.NameComic>{item?.name}</S.NameComic>
               </S.SLink>
-              {renderProductChapter(item.id, item.chapters)}
+              <S.ChapterWrapper>
+                {renderProductChapter(item.id, item.chapters)}
+              </S.ChapterWrapper>
             </S.CardItem>
           </Col>
         );

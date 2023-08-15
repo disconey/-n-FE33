@@ -28,43 +28,33 @@ const HomePage = () => {
         <Row gutter={[16, 16]}>
           <Col lg={16} md={16} sm={24}>
             <S.Left>
-              <div>
-                <S.Title>Truyện Hot</S.Title>
-                <Row gutter={[24, 16]}>
+              <S.ComicWrapper>
+                <S.TitleWrapper>
+                  <S.Title>Truyện Hot</S.Title>
+                  <S.CustomButton size="small">Xem Thêm</S.CustomButton>
+                </S.TitleWrapper>
+                <Row gutter={[16, 16]}>
                   <ProductCard />
                 </Row>
-                <S.CenterButton>
-                  <S.CustomButton type="primary" size="large">
-                    Xem Thêm
-                  </S.CustomButton>
-                </S.CenterButton>
-              </div>
-              <div>
-                <S.Title>Truyện Mới</S.Title>
-                <div>
-                  <Row gutter={[24, 16]}>
-                    <ProductCard />
-                  </Row>
-                </div>
-                <S.CenterButton>
-                  <S.CustomButton type="primary" size="large">
-                    Xem Thêm
-                  </S.CustomButton>
-                </S.CenterButton>
-              </div>
-              <div>
-                <S.Title>Truyện Tận thế</S.Title>
-                <div>
-                  <Row gutter={[24, 16]}>
-                    <ProductCard />
-                  </Row>
-                </div>
-                <S.CenterButton>
-                  <S.CustomButton type="primary" size="large">
-                    Xem Thêm
-                  </S.CustomButton>
-                </S.CenterButton>
-              </div>
+              </S.ComicWrapper>
+              <S.ComicWrapper>
+                <S.TitleWrapper>
+                  <S.Title>Truyện Mới</S.Title>
+                  <S.CustomButton size="small">Xem Thêm</S.CustomButton>
+                </S.TitleWrapper>
+                <Row gutter={[16, 16]}>
+                  <ProductCard />
+                </Row>
+              </S.ComicWrapper>
+              <S.ComicWrapper>
+                <S.TitleWrapper>
+                  <S.Title>Truyện Tận thế</S.Title>
+                  <S.CustomButton size="small">Xem Thêm</S.CustomButton>
+                </S.TitleWrapper>
+                <Row gutter={[16, 16]}>
+                  <ProductCard />
+                </Row>
+              </S.ComicWrapper>
             </S.Left>
           </Col>
           <Col lg={8} md={8} sm={24}>

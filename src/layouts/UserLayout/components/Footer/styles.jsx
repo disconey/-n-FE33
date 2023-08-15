@@ -7,8 +7,7 @@ export const FooterWrapper = styled.div`
 `;
 
 export const FooterWrappers = styled.div`
-  margin-top: 16px;
-  margin-bottom: 16px;
+  padding-bottom: 16px;
   background-color: #323232;
   color: #c3bfbf;
   width: 100%;
@@ -19,8 +18,8 @@ export const ImageIcon = styled.div`
   text-align: center;
 `;
 export const Icon = styled.div`
-  margin-top: 16px;
-  margin-bottom: 16px;
+  margin-top: 12px;
+  margin-bottom: 12px;
   svg {
     cursor: pointer;
     height: 30px;
@@ -48,7 +47,6 @@ export const Li = styled.li`
 `;
 export const Introduce = styled.div`
   margin-top: 16px;
-  margin-bottom: 16px;
   display: flex;
   justify-content: center;
 `;

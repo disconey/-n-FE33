@@ -16,7 +16,6 @@ const GeneralInfo = () => {
 
   return (
     <S.GeneralInfo>
-      <h2>Thông tin chung</h2>
       <S.AccountInfo>
         <S.TitlePersonal>
           <h3>Thông tin tài khoản</h3>

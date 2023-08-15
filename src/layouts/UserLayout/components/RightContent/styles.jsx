@@ -3,16 +3,23 @@ import styled from "styled-components";
 
 export const Reading = styled.div`
   background-color: white;
+  margin-bottom: 16px;
 `;
 export const TitleReading = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #e3e3e3;
-  padding: 10px;
+  padding: 12px 16px 16px;
+`;
+export const TopView = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px 16px;
 `;
 export const Text = styled.h2`
-  color: blue;
+  border-bottom: 2px solid #6197f1;
 `;
 export const P = styled.p`
   text-decoration: none;
@@ -42,13 +49,6 @@ export const ImgComic = styled.img`
   height: 110px;
 `;
 
-export const TopView = styled.h3`
-  background-color: white;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
 export const Charts = styled.div`
   background-color: white;
   text-align: center;
@@ -57,12 +57,10 @@ export const Ul = styled.ul`
   list-style: none;
   padding: 0;
 `;
-export const Li = styled.li`
-  margin-bottom: 30px;
-`;
+export const Li = styled.li``;
 export const CardItemCharts = styled.div`
   display: flex;
-  padding: 10px;
+  padding: 16px 8px;
   border-bottom: 1px solid #e3e3e3;
 `;
 export const Number = styled.h1`
@@ -72,13 +70,15 @@ export const Number = styled.h1`
   display: flex;
 `;
 export const ImgComicCharts = styled.img`
-  width: 100px;
-  height: 140px;
+  width: 70px;
+  height: 100px;
+  object-fit: cover;
 `;
 export const ContentCharts = styled.div`
   display: flex;
   justify-content: space-between;
   width: 60%;
+  margin-left: 12px;
 `;
 
 export const ItemSide = styled.div`
@@ -117,4 +117,12 @@ export const CenterButton = styled.div`
 
 export const CustomButton = styled(Button)`
   text-align: center;
+`;
+
+export const RightContentWrapper = styled.div`
+  margin-top: 16px;
+`;
+
+export const TopViewWrapper = styled.div`
+  background-color: white;
 `;

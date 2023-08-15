@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const CardItem = styled.div`
-  height: 310px;
   width: 100%;
   position: relative;
 `;
@@ -11,25 +10,32 @@ export const Img = styled.img`
   width: 100%;
   height: 200px;
   position: relative;
+  object-fit: cover;
 `;
 export const SLink = styled(Link)`
+  display: block;
   text-decoration: none;
-  color: black;
+  color: #6197f1;
   &:hover {
     text-decoration: revert;
-    color: black;
+    color: #6197f1;
   }
 `;
 export const NameComic = styled.h4`
   font-size: 16px;
-  margin: 0 0 7px;
-  font-weight: 400;
+  font-weight: 500;
+  margin: 4px 0;
   overflow: hidden;
   text-overflow: ellipsis;
   cursor: pointer;
+  height: 48px;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+`;
+
+export const ChapterWrapper = styled.div`
+  height: 60px;
 `;
 
 export const TextContent = styled.div`
@@ -53,7 +59,7 @@ export const ViewChapterAt = styled.div`
   color: silver;
   font-size: 11px;
   font-style: italic;
-  max-width: 47%;
+  max-width: 56%;
   overflow: hidden;
   white-space: nowrap;
 `;
@@ -66,7 +72,7 @@ export const SideImg = styled.div`
   opacity: 0.65;
   height: 25px;
   position: absolute;
-  bottom: 110px;
+  bottom: 0;
   line-height: 25px;
   font-size: 12px;
   display: flex;

@@ -4,7 +4,16 @@ import { Link } from "react-router-dom/dist";
 import styled from "styled-components";
 
 export const Container = styled.div`
-  padding: 10px;
+  padding: 16px;
+  background-color: white;
+  border-radius: 5px;
+  margin-bottom: 16px;
+
+  & > h4 {
+    display: inline-block;
+    border-bottom: 2px solid #6197f1;
+    margin-bottom: 12px;
+  }
 `;
 export const TopComment = styled.div`
   display: flex;
@@ -12,8 +21,8 @@ export const TopComment = styled.div`
   margin-bottom: 30px;
 `;
 export const Avatar = styled.img`
-  width: 100px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
 `;
 
@@ -31,7 +40,7 @@ export const MainComment = styled.div`
   display: flex;
   gap: 10px;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 `;
 
 export const Comment = styled.div`
@@ -39,34 +48,36 @@ export const Comment = styled.div`
 `;
 
 export const ContentComment = styled.div`
-  border: 1px solid #bbb9b9;
-  padding: 5px;
-  height: 80px;
+  border: 1px solid #ddd;
+  padding: 16px;
+  border-radius: 5px;
 `;
 
 export const NameComment = styled.div`
   display: flex;
   border-bottom: 1px solid #bbb9b9;
+  padding-bottom: 4px;
+  margin-bottom: 4px;
   align-items: center;
-  height: 30px;
   gap: 5px;
 `;
 export const Name = styled.h4`
   margin: 0;
-  color: blue;
+  color: #0084ff;
 `;
 export const Text = styled.p`
-  color: blue;
+  color: #0084ff;
   font-style: italic;
 `;
 
 export const Reply = styled.div`
   display: flex;
   gap: 20px;
+  margin-top: 6px;
 `;
 export const TextReply = styled.p`
   margin: 0;
-  color: blue;
+  color: #0084ff;
 `;
 
 export const Fillter = styled.div`
@@ -74,13 +85,9 @@ export const Fillter = styled.div`
   margin-bottom: 10px;
 `;
 
-export const H4 = styled.h4`
-  margin-bottom: 10px;
-`;
-
 export const Login = styled(Link)`
   cursor: pointer;
-  color: blue;
+  color: #0084ff;
   text-decoration: none;
   &:hover {
     text-decoration: underline;

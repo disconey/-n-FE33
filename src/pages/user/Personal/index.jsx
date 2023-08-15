@@ -1,19 +1,94 @@
-import React from "react";
+import React, { useMemo } from "react";
+import { Card, Row, Col, Breadcrumb, Space } from "antd";
 import pic from "img/7334991209.jpg";
 
-import { Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useLocation, generatePath } from "react-router-dom";
+import { CameraOutlined, UserOutlined, HomeOutlined } from "@ant-design/icons";
 import * as S from "./styles";
 import useScrollToTop from "hooks/useSrcollToTop";
 import { ROUTES } from "constants/routes";
 import Midmenu from "layouts/UserLayout/components/Midmenu";
 import AdminHeader from "layouts/UserLayout/components/Header";
 import UserFooter from "layouts/UserLayout/components/Footer";
-import { useSelector } from "react-redux";
-import { generatePath } from "react-router-dom/dist";
+import { convertImageToBase64 } from "utils/file";
+import { useSelector, useDispatch } from "react-redux";
+import { changeAvatarRequest } from "redux/slicers/auth.slice";
+
 const PersonalPage = () => {
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { pathname } = useLocation();
+
   useScrollToTop();
   const { userInfo } = useSelector((state) => state.auth);
+
+  const handleChangeAvatar = async (e) => {
+    const imgBase64 = await convertImageToBase64(e.target.files[0]);
+    await dispatch(
+      changeAvatarRequest({ id: userInfo.data.id, avatar: imgBase64 })
+    );
+  };
+
+  const PROFILE_MENU = [
+    {
+      label: "Thông tin chung",
+      path: generatePath(ROUTES.PERSONAL.GENERALINFO, {
+        id: userInfo.data.id,
+      }),
+    },
+    {
+      label: "Thông tin tài khoản",
+      path: generatePath(ROUTES.PERSONAL.ACCOUNTINFO, {
+        id: userInfo.data.id,
+      }),
+    },
+    {
+      label: "Truyện theo dõi",
+      path: "",
+    },
+    {
+      label: "Nạp xu",
+      path: generatePath(ROUTES.PERSONAL.PAYMENT, {
+        id: userInfo.data.id,
+      }),
+    },
+    {
+      label: "Lịch sử nạp tiền",
+      path: "",
+    },
+    {
+      label: "Lịch sử mở khoá",
+      path: "",
+    },
+    {
+      label: "Bình luận",
+      path: "",
+    },
+    {
+      label: "Đổi mật khẩu",
+      path: "",
+    },
+  ];
+
+  const renderProfileMenu = useMemo(() => {
+    return PROFILE_MENU.map((item, index) => {
+      return (
+        <Link
+          to={item.path}
+          key={index}
+          style={{ color: "rgba(0, 0, 0, 0.88)" }}
+        >
+          <S.ProfileMenuItem active={item.path === pathname}>
+            {item.label}
+          </S.ProfileMenuItem>
+        </Link>
+      );
+    });
+  }, [pathname]);
+
+  const profileLabel = useMemo(() => {
+    return PROFILE_MENU.find((item) => item.path === pathname)?.label;
+  }, [pathname]);
+
   return (
     <div>
       <S.UserLayoutHeader>
@@ -21,62 +96,49 @@ const PersonalPage = () => {
         <Midmenu />
       </S.UserLayoutHeader>
       <S.PersonalWrapper>
-        <S.LeftPersonal>
-          <S.Avatar src={userInfo.data.avatar} alt="" />
-          <S.NamePersonal>{userInfo.data.fullName}</S.NamePersonal>
-          <S.ListPersonal>
-            <S.ItemPersonal
-              className="item-personal"
-              onClick={() =>
-                navigate(
-                  generatePath(ROUTES.PERSONAL.GENERALINFO, {
-                    id: userInfo.data.id,
-                  })
-                )
-              }
-            >
-              Thông tin chung
-            </S.ItemPersonal>
-            <S.ItemPersonal
-              className="item-personal"
-              onClick={() =>
-                navigate(
-                  generatePath(ROUTES.PERSONAL.ACCOUNTINFO, {
-                    id: userInfo.data.id,
-                  })
-                )
-              }
-            >
-              Thông tin tài khoản
-            </S.ItemPersonal>
-            <S.ItemPersonal className="item-personal">
-              Truyện theo dõi
-            </S.ItemPersonal>
-            <S.ItemPersonal
-              className="item-personal"
-              onClick={() =>
-                navigate(
-                  generatePath(ROUTES.PERSONAL.PAYMENT, {
-                    id: userInfo.data.id,
-                  })
-                )
-              }
-            >
-              Nạp xu
-            </S.ItemPersonal>
-            <S.ItemPersonal className="item-personal">
-              Lịch sử nạp tiền
-            </S.ItemPersonal>
-            <S.ItemPersonal className="item-personal">
-              Lịch sử mở khoá
-            </S.ItemPersonal>
-            <S.ItemPersonal className="item-personal">Bình luận</S.ItemPersonal>
-            <S.ItemPersonal className="item-personal">Thoát</S.ItemPersonal>
-          </S.ListPersonal>
-        </S.LeftPersonal>
-        <S.RightPersonal>
-          <Outlet />
-        </S.RightPersonal>
+        <Row gutter={[16, 16]}>
+          <Col md={6}>
+            <S.ProfileMenuWrapper bordered={false} size="small">
+              <S.AvatarContainer>
+                <S.AvatarUpload>
+                  <S.AvatarEdit>
+                    <input
+                      type="file"
+                      id="imageUpload"
+                      accept=".png, .jpg, .jpeg"
+                      onChange={(e) => handleChangeAvatar(e)}
+                    />
+                    <label for="imageUpload">
+                      <CameraOutlined style={{ fontSize: 16 }} />
+                    </label>
+                  </S.AvatarEdit>
+                  {userInfo.data.avatar ? (
+                    <S.AvatarPreview
+                      src={userInfo.data.avatar}
+                      alt="User profile picture"
+                    />
+                  ) : (
+                    <S.AvatarDefaultWrapper>
+                      <S.AvatarDefaultContainer
+                        icon={<UserOutlined style={{ fontSize: 36 }} />}
+                      />
+                    </S.AvatarDefaultWrapper>
+                  )}
+                </S.AvatarUpload>
+                <h3>{userInfo.data.fullName}</h3>
+                <p>{userInfo.data.email}</p>
+              </S.AvatarContainer>
+              <S.ProfileMenuContainer>
+                {renderProfileMenu}
+              </S.ProfileMenuContainer>
+            </S.ProfileMenuWrapper>
+          </Col>
+          <Col md={18}>
+            <Card bordered={false} title={profileLabel}>
+              <Outlet />
+            </Card>
+          </Col>
+        </Row>
       </S.PersonalWrapper>
       <UserFooter />
     </div>

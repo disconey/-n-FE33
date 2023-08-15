@@ -51,19 +51,26 @@ const RightContent = () => {
     });
   }, [historyList]);
   return (
-    <div className="right-content">
+    <S.RightContentWrapper>
       <S.Reading>
         <S.TitleReading>
           <S.Text>Đang đọc</S.Text>
-          <S.P>Xem tất cả</S.P>
+          <S.CustomButton size="small">Xem thêm</S.CustomButton>
         </S.TitleReading>
         <div>{renderHistoryList}</div>
       </S.Reading>
 
-      <div className="top-view">
-        <S.TopView>Bảng xếp hạng</S.TopView>
+      <S.TopViewWrapper>
+        <S.TopView>
+          <S.Text>Bảng xếp hạng</S.Text>
+          <S.CustomButton size="small">Xem thêm</S.CustomButton>
+        </S.TopView>
         <S.Charts>
-          <Segmented block options={["Ngày", "Tuần", "Tháng"]} />
+          <Segmented
+            block
+            options={["Ngày", "Tuần", "Tháng"]}
+            style={{ margin: "0 32px 16px" }}
+          />
           <S.Ul>
             <S.Li>
               <S.CardItemCharts>
@@ -196,14 +203,9 @@ const RightContent = () => {
               </S.CardItemCharts>
             </S.Li>
           </S.Ul>
-          <S.CenterButton>
-            <S.CustomButton type="primary" size="large">
-              Xem Thêm
-            </S.CustomButton>
-          </S.CenterButton>
         </S.Charts>
-      </div>
-    </div>
+      </S.TopViewWrapper>
+    </S.RightContentWrapper>
   );
 };
 

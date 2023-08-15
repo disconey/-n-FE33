@@ -17,6 +17,12 @@ import {
   paymentRequest,
   paymentSuccess,
   paymentFailure,
+  changePasswordRequest,
+  changePasswordSuccess,
+  changePasswordFailure,
+  changeAvatarRequest,
+  changeAvatarSuccess,
+  changeAvatarFailure,
 } from "redux/slicers/auth.slice";
 
 function* loginSaga(action) {
@@ -72,14 +78,41 @@ function* paymentSaga(action) {
     yield put(paymentFailure({ error: e }));
   }
 }
+
 function* updateUserInfoSaga(action) {
   try {
-    const { data, callback, id } = action.payload;
+    const { id, data } = action.payload;
     const result = yield axios.patch(`http://localhost:4000/users/${id}`, data);
-    // yield callback();
     yield put(updateUserInfoSuccess({ data: result.data }));
   } catch (e) {
-    yield put(updateUserInfoFailure({ error: e }));
+    yield put(updateUserInfoFailure({ error: "Lỗi" }));
+  }
+}
+
+function* changePasswordSaga(action) {
+  try {
+    const { id, data, callback } = action.payload;
+    yield axios.post("http://localhost:4000/login", {
+      email: data.email,
+      password: data.password,
+    });
+    const result = yield axios.patch(`http://localhost:4000/users/${id}`, {
+      password: data.newPassword,
+    });
+    callback();
+    yield put(changePasswordSuccess({ data: result.data }));
+  } catch (e) {
+    yield put(changePasswordFailure({ error: "Lỗi" }));
+  }
+}
+
+function* changeAvatarSaga(action) {
+  try {
+    const { id, avatar } = action.payload;
+    yield axios.patch(`http://localhost:4000/users/${id}`, { avatar: avatar });
+    yield put(changeAvatarSuccess({ avatar: avatar }));
+  } catch (e) {
+    yield put(changeAvatarFailure({ error: "Lỗi" }));
   }
 }
 
@@ -89,4 +122,6 @@ export default function* authSaga() {
   yield takeEvery(getUserInfoRequest.type, getUserInfoSaga);
   yield takeEvery(paymentRequest.type, paymentSaga);
   yield takeEvery(updateUserInfoRequest.type, updateUserInfoSaga);
+  yield takeEvery(changePasswordRequest.type, changePasswordSaga);
+  yield takeEvery(changeAvatarRequest.type, changeAvatarSaga);
 }

@@ -25,7 +25,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductDetailRequest } from "redux/slicers/product.slice";
 import { getChapterListRequest } from "redux/slicers/chapter.slice";
 import { getReviewListRequest } from "redux/slicers/review.slice";
-import { Breadcrumb, Space, Table, notification } from "antd";
+import { Breadcrumb, Space, notification } from "antd";
 import {
   followProductRequest,
   unFollowProductRequest,
@@ -56,7 +56,7 @@ const DetailCard = () => {
     return chapters.map((item) => {
       return (
         <S.Li>
-          <div style={{ display: "flex" }}>
+          <Space>
             <S.SLink
               to={generatePath(ROUTES.CHAPTER_PAGE, {
                 comicId: comicId,
@@ -66,16 +66,16 @@ const DetailCard = () => {
               {item.name}
             </S.SLink>
             {item.price ? (
-              <span style={{ color: "red" }}>
+              <Space size={4} style={{ color: "red" }}>
                 <LockOutlined />
                 {item.price}
-              </span>
+              </Space>
             ) : (
               ""
             )}
-          </div>
+          </Space>
 
-          <S.TextP>1 Ngày trước</S.TextP>
+          <S.CenterTextP>1 Ngày trước</S.CenterTextP>
           <S.TextP>928</S.TextP>
         </S.Li>
       );
@@ -116,59 +116,57 @@ const DetailCard = () => {
     }
   };
   return (
-    <div>
-      <S.DetailCard>
-        <Breadcrumb
-          items={[
-            {
-              title: (
-                <Link to={ROUTES.USER.HOME}>
-                  <Space>
-                    <HomeOutlined />
-                    <span>Trang chủ</span>
-                  </Space>
-                </Link>
-              ),
-            },
-            {
-              title: (
-                <Link to={ROUTES.FITLER_SEARCH_PAGE}>Danh sách sản phẩm</Link>
-              ),
-            },
-            {
-              title: (
-                <Link
-                  to={{
-                    pathname: ROUTES.FITLER_SEARCH_PAGE,
-                    search: qs.stringify({
-                      ...filterParams,
-                      categoryId: [productDetail.data.categoryId],
-                    }),
-                  }}
-                >
-                  {productDetail.data.category?.name}
-                </Link>
-              ),
-              onClick: () =>
-                dispatch(
-                  setFilterParams({
+    <S.DetailCardWrapper>
+      <Breadcrumb
+        items={[
+          {
+            title: (
+              <Link to={ROUTES.USER.HOME}>
+                <Space>
+                  <HomeOutlined />
+                  <span>Trang chủ</span>
+                </Space>
+              </Link>
+            ),
+          },
+          {
+            title: <Link to={ROUTES.FITLER_SEARCH_PAGE}>Danh sách truyện</Link>,
+          },
+          {
+            title: (
+              <Link
+                to={{
+                  pathname: ROUTES.FITLER_SEARCH_PAGE,
+                  search: qs.stringify({
                     ...filterParams,
                     categoryId: [productDetail.data.categoryId],
-                  })
-                ),
-            },
-            {
-              title: productDetail.data.name,
-            },
-          ]}
-          style={{ marginBottom: 8 }}
-        />
+                  }),
+                }}
+              >
+                {productDetail.data.category?.name}
+              </Link>
+            ),
+            onClick: () =>
+              dispatch(
+                setFilterParams({
+                  ...filterParams,
+                  categoryId: [productDetail.data.categoryId],
+                })
+              ),
+          },
+          {
+            title: productDetail.data.name,
+          },
+        ]}
+        style={{ margin: "16px 0" }}
+      />
+      <S.DetailCard>
         <S.ContentDetail>
           <S.Img src={pic} alt="" />
           <div>
             <S.TitleDetail>{productDetail.data.name}</S.TitleDetail>
             <div>
-              <S.CustomButton size={"large"}>
+              <S.CustomButton type="primary" ghost>
                 {productDetail.data.category?.name}
               </S.CustomButton>
             </div>
@@ -202,7 +200,7 @@ const DetailCard = () => {
                 <p>1,999</p>
               </S.ItemDetailCard>
             </S.ComicContent>
-            <div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
               <S.RedButton
                 type="primary"
                 icon={<ReadOutlined />}
@@ -239,36 +237,45 @@ const DetailCard = () => {
             </div>
           </div>
         </S.ContentDetail>
-        <div>
-          <h4>
-            <InfoCircleOutlined /> Giới thiệu
-          </h4>
-          <p>{productDetail.data.description}</p>
-        </div>
-        <div>
-          <h4>
-            <UnorderedListOutlined /> Danh sách chương
-          </h4>
-
-          <S.ChapterTable>
-            <S.TopTable>
-              <S.Text>Chapter</S.Text>
-              <S.Text>Cập nhật</S.Text>
-              <S.Text>Lượt xem</S.Text>
-            </S.TopTable>
-            <div>
-              <S.Ul>
-                {renderProductChapter(
-                  productDetail.data.id,
-                  productDetail.data.chapters
-                )}
-              </S.Ul>
-            </div>
-          </S.ChapterTable>
-        </div>
-        <Comment />
       </S.DetailCard>
-    </div>
+      <S.DetailCard>
+        <h4>
+          <InfoCircleOutlined /> Giới thiệu
+        </h4>
+        <p>{productDetail.data.description}</p>
+      </S.DetailCard>
+      <S.DetailCard>
+        <h4>
+          <UnorderedListOutlined /> Danh sách chương
+        </h4>
+
+        <S.ChapterTable>
+          <S.TopTable>
+            <S.Text>Chapter</S.Text>
+            <S.Text
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+              }}
+            >
+              Cập nhật
+            </S.Text>
+            <S.Text>Lượt xem</S.Text>
+          </S.TopTable>
+          <div>
+            <S.Ul>
+              {renderProductChapter(
+                productDetail.data.id,
+                productDetail.data.chapters
+              )}
+            </S.Ul>
+          </div>
+        </S.ChapterTable>
+      </S.DetailCard>
+      <Comment />
+    </S.DetailCardWrapper>
   );
 };
 

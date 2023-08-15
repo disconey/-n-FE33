@@ -8,9 +8,19 @@ export const MainFilterSearch = styled.div`
   max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
-  padding: 30px 20px;
+  padding: 0 16px;
+`;
+
+export const MainFilterContainer = styled.div`
   background-color: white;
-  gap: 10px;
+  padding: 8px 16px 16px;
+  margin-bottom: 32px;
+`;
+
+export const FilterTitle = styled.div`
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ddd;
 `;
 
 export const FilterSearch = styled.div`
@@ -33,7 +43,12 @@ export const LeftCard = styled.div`
 export const CardContent = styled.div``;
 
 export const FilterSelect = styled.div`
-  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ddd;
 `;
 export const Pagination = styled(ReactPaginate)`
   display: inline-block;

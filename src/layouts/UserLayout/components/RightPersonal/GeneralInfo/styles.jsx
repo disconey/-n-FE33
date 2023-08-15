@@ -6,24 +6,25 @@ export const GeneralInfo = styled.div`
 `;
 
 export const AccountInfo = styled.div`
-  width: 500px;
   margin-bottom: 20px;
-  margin-left: 20px;
 `;
 export const TitlePersonal = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 8px;
 `;
 
 export const InfoDetail = styled.div`
-  padding: 20px;
-  border: 1px solid #ccc;
+  padding: 16px;
+  border: 1px solid #dddddd;
 `;
 export const TextDetail = styled.div`
   display: flex;
-  justify-content: space-between;
+
+  & > p:first-child {
+    width: 100px;
+  }
 `;
 export const ComicFollow = styled.div`
   width: 100%;
@@ -33,6 +34,7 @@ export const FollowPersonal = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 8px;
 `;
 
 export const FollowTable = styled.table`

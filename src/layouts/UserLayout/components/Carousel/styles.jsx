@@ -5,6 +5,7 @@ import styled from "styled-components";
 export const Img = styled.img`
   width: 100vw;
   height: 350px;
+  object-fit: cover;
 `;
 
 export const Slide = styled(Slider)`
@@ -13,9 +14,11 @@ export const Slide = styled(Slider)`
   }
 
   & .slick-next {
-    right: 1px;
+    right: 16px;
+    z-index: 1;
   }
   & .slick-prev {
-    left: 1px;
+    left: 16px;
+    z-index: 1;
   }
 `;
